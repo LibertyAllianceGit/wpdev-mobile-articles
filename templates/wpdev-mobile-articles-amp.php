@@ -56,6 +56,8 @@ include plugin_dir_path(__FILE__) . 'amp-parts/amp-content-clean.php'; ?>
         <?php include plugin_dir_path(__FILE__) . 'amp-parts/amp-buttons.php'; ?>
         <!-- RevContent Ad -->
         <?php include plugin_dir_path(__FILE__) . 'amp-parts/amp-revcontent.php'; ?>
+        <!-- Taboola Ad -->
+        <?php include plugin_dir_path(__FILE__) . 'amp-parts/amp-taboola.php'; ?>
       </div>
     </div>
     <!-- Article Related -->

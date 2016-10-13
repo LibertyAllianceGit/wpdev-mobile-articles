@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.0.0
+Version: 1.1.0
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -407,6 +407,14 @@ class WPDevMobile {
 			'wpdev_mobile_amp_settings_section' // section
 		);
 
+    add_settings_field(
+			'taboola_ad_18', // id
+			'Taboola Ad', // title
+			array( $this, 'taboola_ad_18_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_amp_settings_section' // section
+		);
+
 		add_settings_field(
 			'amp_google_analytics_tracking_id_19', // id
 			'AMP Google Analytics Tracking ID', // title
@@ -587,6 +595,10 @@ class WPDevMobile {
 
 		if ( isset( $input['revcontent_ad_18'] ) ) {
 			$sanitary_values['revcontent_ad_18'] = sanitize_text_field( $input['revcontent_ad_18'] );
+		}
+
+    if ( isset( $input['taboola_ad_18'] ) ) {
+			$sanitary_values['taboola_ad_18'] = sanitize_text_field( $input['taboola_ad_18'] );
 		}
 
 		if ( isset( $input['amp_google_analytics_tracking_id_19'] ) ) {
@@ -837,6 +849,13 @@ class WPDevMobile {
 		);
 	}
 
+  public function taboola_ad_18_callback() {
+		printf(
+			'<input class="regular-text" type="text" placeholder="100,100,amp-demo,thumbnails-a,Responsive Example" name="wpdev_mobile_option_name[taboola_ad_18]" id="taboola_ad_18" value="%s"><label for="taboola_ad_18">Add the width, height, publisher ID, mode, and placement for the Taboola ad, separated by commas.</label>',
+			isset( $this->wpdev_mobile_options['taboola_ad_18'] ) ? esc_attr( $this->wpdev_mobile_options['taboola_ad_18']) : ''
+		);
+	}
+
 	public function amp_google_analytics_tracking_id_19_callback() {
 		printf(
 			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[amp_google_analytics_tracking_id_19]" id="amp_google_analytics_tracking_id_19" value="%s"><label for="amp_google_analytics_tracking_id_19">Add the Google Analytics tracking ID.</label>',
@@ -924,43 +943,3 @@ class WPDevMobile {
 }
 if ( is_admin() )
 	$wpdev_mobile = new WPDevMobile();
-
-/**
-Option Variables Setup
-**/
-
-/*
- * Retrieve this value with:
- * $wpdev_mobile_options = get_option( 'wpdev_mobile_option_name' ); // Array of All Options
- * $logo_image_0 = $wpdev_mobile_options['logo_image_0']; // Logo Image
- * $header_font_1 = $wpdev_mobile_options['header_font_1']; // Header Font
- * $body_font_2 = $wpdev_mobile_options['body_font_2']; // Body Font
- * $highlight_color_3 = $wpdev_mobile_options['highlight_color_3']; // Highlight Color
- * $enable_subscribe_button_for_amp_4 = $wpdev_mobile_options['enable_subscribe_button_for_amp_4']; // Enable Subscribe Button for AMP
- * $subscribe_button_link_for_amp_5 = $wpdev_mobile_options['subscribe_button_link_for_amp_5']; // Subscribe Button Link for AMP
- * $footer_articles_section_6 = $wpdev_mobile_options['footer_articles_section_6']; // Footer Articles Section
- * $footer_home_link_7 = $wpdev_mobile_options['footer_home_link_7']; // Footer - Home Link
- * $footer_about_link_8 = $wpdev_mobile_options['footer_about_link_8']; // Footer - About Link
- * $footer_contact_link_9 = $wpdev_mobile_options['footer_contact_link_9']; // Footer - Contact Link
- * $footer_privacy_policy_link_10 = $wpdev_mobile_options['footer_privacy_policy_link_10']; // Footer - Privacy Policy Link
- * $footer_advertising_link_11 = $wpdev_mobile_options['footer_advertising_link_11']; // Footer - Advertising Link
- * $dfp_ad_1_12 = $wpdev_mobile_options['dfp_ad_1_12']; // DFP Ad 1
- * $dfp_ad_2_13 = $wpdev_mobile_options['dfp_ad_2_13']; // DFP Ad 2
- * $dfp_ad_3_14 = $wpdev_mobile_options['dfp_ad_3_14']; // DFP Ad 3
- * $adsense_ad_1_15 = $wpdev_mobile_options['adsense_ad_1_15']; // AdSense Ad 1
- * $adsense_ad_2_16 = $wpdev_mobile_options['adsense_ad_2_16']; // AdSense Ad 2
- * $adsense_ad_3_17 = $wpdev_mobile_options['adsense_ad_3_17']; // AdSense Ad 3
- * $revcontent_ad_18 = $wpdev_mobile_options['revcontent_ad_18']; // RevContent Ad
- * $amp_google_analytics_tracking_id_19 = $wpdev_mobile_options['amp_google_analytics_tracking_id_19']; // AMP Google Analytics Tracking ID
- * $number_of_posts_20 = $wpdev_mobile_options['number_of_posts_20']; // Number of Posts
- * $enable_facebook_ads_21 = $wpdev_mobile_options['enable_facebook_ads_21']; // Enable Facebook Ads
- * $facebook_ad_placement_id_1_22 = $wpdev_mobile_options['facebook_ad_placement_id_1_22']; // Facebook Ad Placement ID 1
- * $facebook_ad_placement_id_2_23 = $wpdev_mobile_options['facebook_ad_placement_id_2_23']; // Facebook Ad Placement ID 2
- * $facebook_ad_placement_id_3_24 = $wpdev_mobile_options['facebook_ad_placement_id_3_24']; // Facebook Ad Placement ID 3
- * $facebook_ad_placement_id_4_25 = $wpdev_mobile_options['facebook_ad_placement_id_4_25']; // Facebook Ad Placement ID 4
- * $enable_google_analytics_tracking_26 = $wpdev_mobile_options['enable_google_analytics_tracking_26']; // Enable Google Analytics Tracking
- * $fbia_google_analytics_tracking_id_27 = $wpdev_mobile_options['fbia_google_analytics_tracking_id_27']; // FBIA Google Analytics Tracking ID
- * $enable_google_analytics_group_tracking_28 = $wpdev_mobile_options['enable_google_analytics_group_tracking_28']; // Enable Google Analytics Group Tracking
- * $enable_subscribe_button_for_fbia_29 = $wpdev_mobile_options['enable_subscribe_button_for_fbia_29']; // Enable Subscribe Button for FBIA
- * $subscribe_button_link_for_fbia_30 = $wpdev_mobile_options['subscribe_button_link_for_fbia_30']; // Subscribe Button Link for FBIA
- */

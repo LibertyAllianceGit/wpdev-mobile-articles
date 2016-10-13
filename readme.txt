@@ -26,6 +26,10 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.1.0 =
+* Added Taboola ad support.
+* Cleaned and organized plugin files.
+
 = 1.0.0 =
 * Plugin release.
 
