@@ -18,16 +18,16 @@ jQuery(function($) {
 
 jQuery(function($) {
     $(document).ready(function() {
-      $("form h2").first().addClass("amp-settings");
-      $("form h2").last().addClass("fbia-settings");
-      $("table.form-table").addClass("hidden");
-      $("table.form-table").first().addClass("amp-settings");
-      $("table.form-table").last().addClass("fbia-settings");
+      $(".wpdev-mobile-admin form h2").first().addClass("amp-settings");
+      $(".wpdev-mobile-admin form h2").last().addClass("fbia-settings");
+      $(".wpdev-mobile-admin table.form-table").addClass("hidden");
+      $(".wpdev-mobile-admin table.form-table").first().addClass("amp-settings");
+      $(".wpdev-mobile-admin table.form-table").last().addClass("fbia-settings");
     });
     $("button.wpdev-button-amp").on("click", function(){
-        $("table.form-table").first().toggleClass("hidden");
+        $(".wpdev-mobile-admin table.form-table").first().toggleClass("hidden");
     });
     $("button.wpdev-button-fbia").on("click", function(){
-        $("table.form-table").last().toggleClass("hidden");
+        $(".wpdev-mobile-admin table.form-table").last().toggleClass("hidden");
     });
 });
