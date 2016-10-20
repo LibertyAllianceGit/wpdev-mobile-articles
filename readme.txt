@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.2.1 =
+* RevContent bug fix.
+
 = 1.2.0 =
 * Admin page style edits.
 

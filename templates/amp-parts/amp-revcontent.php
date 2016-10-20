@@ -4,7 +4,7 @@ $revcontent_ad_grab = $wpdev_mobile_options['revcontent_ad_18']; // RevContent A
 
 if(!empty($revcontent_ad_grab)) {
   $revcontentad = explode(',', $revcontent_ad_grab);
-  $revcontentout = '<amp-ad width=' . $revcontentad[0] . ' height=' . $revcontent[1] . ' type="revcontent" data-wrapper="' . $revcontent[2] . '" data-endpoint="trends.revcontent.com" data-id="' . $revcontent[3] . '"></amp-ad>'; ?>
+  $revcontentout = '<amp-ad width=' . $revcontentad[0] . ' height=' . $revcontentad[1] . ' type="revcontent" data-wrapper="' . $revcontentad[2] . '" data-endpoint="trends.revcontent.com" data-id="' . $revcontentad[3] . '"></amp-ad>'; ?>
    <div class="article-ad">
      <?php echo $revcontentout; ?>
    </div>
