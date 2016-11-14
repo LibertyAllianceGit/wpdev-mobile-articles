@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.2.1
+Version: 1.2.2
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -196,7 +196,7 @@ function wpdev_mobile_article_thumbnail_crop_fix($default, $orig_w, $orig_h, $ne
 add_filter('image_resize_dimensions', 'wpdev_mobile_article_thumbnail_crop_fix', 10, 6);
 
 // Add AMP Image Size
-add_image_size('wpdev_mobile_amp', 600, 350, true);
+add_image_size('wpdev_mobile_amp', 696, 406, true);
 
 /**
 Options Page
@@ -658,7 +658,7 @@ class WPDevMobile {
 
 	public function logo_image_0_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[logo_image_0]" id="logo_image_0" value="%s"><label for="logo_image_0">Add the URL for the site logo.</label>',
+			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[logo_image_0]" id="logo_image_0" value="%s"><label for="logo_image_0">Add the URL for the site logo. Logo size must be 60px high by 600px wide. This is a requirement by Google.</label>',
 			isset( $this->wpdev_mobile_options['logo_image_0'] ) ? esc_attr( $this->wpdev_mobile_options['logo_image_0']) : ''
 		);
 	}

@@ -1,5 +1,6 @@
 <?php
 $wpdev_mobile_options = get_option( 'wpdev_mobile_option_name' ); // Array of All Options
+$logoimage = $wpdev_mobile_options['logo_image_0'];
 $headerfont = $wpdev_mobile_options['header_font_1']; // Header Font
 $bodyfont = $wpdev_mobile_options['body_font_2']; // Body Font
 $highlightcolor = $wpdev_mobile_options['highlight_color_3']; // Highlight Color
@@ -127,15 +128,38 @@ if($headerfont == $bodyfont) {
 <?php echo $headfontoutput; ?>
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "NewsArticle",
-    "headline": "<?php echo $title; ?>",
-    "datePublished": "<?php echo $date; ?>",
-    "image": [
-      "<?php echo $image[0]; ?>"
-    ]
-  }
+{
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "<?php echo $url; ?>"
+  },
+  "headline": "<?php echo $title; ?>",
+  "image": {
+    "@type": "ImageObject",
+    "url": "<?php echo $image[0]; ?>",
+    "height": 406,
+    "width": 696
+  },
+  "datePublished": "<?php echo $postpub; ?>",
+  "dateModified": "<?php echo $postmod; ?>",
+  "author": {
+    "@type": "Person",
+    "name": "<?php echo $author; ?>"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "<?php echo $site; ?>",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "<?php echo $logoimage; ?>",
+      "width": 600,
+      "height": 60
+    }
+  },
+  "description": "<?php echo $excerpt; ?>"
+}
 </script>
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 <style amp-custom><?php echo $bodycssoutput . $headcssoutput; ?>div.article-600{max-width: 600px; margin: 0 auto; width: auto; padding: 0 10px;}nav.title-bar {text-align:center; padding: 0.5rem 0;}ul.article-share-container li {display: inline-block;} ul.article-share-container {padding: 0;}.article-title h1 {margin-bottom: 0;line-height: 2rem;}figcaption.wp-caption-text {text-align: center;font-size: 0.8rem;color: #7e7e7e;margin-top: -0.9rem;}p.wpdev-article-meta {font-size: 0.9rem;font-weight: bold;}p.wpdev-article-meta span {color: #a4a4a4;}p.wpdev-article-meta a {text-decoration: none;color: <?php echo $color; ?>;}.article-footer {background: #333;color: #fff;font-size: 0.9rem;text-align: center;padding: 1.5rem 0;}.article-content {margin-bottom: 2rem;}.article-footer a {color: <?php echo $color; ?>;text-decoration: none;font-weight: bold;}p.article-footer-menu a {padding: 0 0.5rem;text-transform: uppercase; font-size: 1rem;}blockquote {background: #f5f5f5;margin: 0.5rem 0;padding: 0.5rem 2rem 1rem;border-left: 1px solid <?php echo $color; ?>;}h3.article-share-head {margin: 0;display: inline-block;vertical-align: sub;margin-right: 0.5rem;color: <?php echo $color; ?>;}.article-share-bottom ul.article-share-container {margin: 0;display: inline-block;vertical-align: text-top;}.article-share.article-share-bottom {background: whitesmoke;padding: 1rem 1rem 0.5rem 1rem;margin: 1rem 0;border-left: 1px solid <?php echo $color; ?>;}.article-ad {text-align: center;}h1.article-site-title {font-size: 2rem;text-decoration: inherit;color: <?php echo $color; ?>;}a.article-fullexperience {border: 1px solid <?php echo $color; ?>;color: #000;text-decoration: none;font-weight: bold;font-size: 1.1rem;width: 100%;display: block;text-align: center;padding: 0.6rem 0;}.article-related {background: #f5f5f5;padding: 1.5rem;}.article-related-single.half .article-related-single-img {display: inline-block;width: 31%;margin-right: 1rem;}.article-related-single.half {display: block;position: relative;}.article-related-single.half .article-related-single-title {display: inline-block;width: 61%;vertical-align: top;}.article-related-single-title h3 {margin: 0;}.article-related-single {background: #fff;margin: 0.5rem 0;padding: 1rem;}.article-related-single-title a {text-decoration: none;color: <?php echo $color; ?>;font-weight: bold;}h2.article-related-section {margin: 0;}</style>

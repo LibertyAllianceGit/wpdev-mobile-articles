@@ -6,7 +6,7 @@ $logoimage = $wpdev_mobile_options['logo_image_0']; ?>
   <div>
     <a href="<?php echo get_bloginfo('url'); ?>">
       <?php if(!empty($logoimage)) { ?>
-      <amp-img src="<?php echo $logoimage; ?>" width=250 height=50></amp-img>
+      <amp-img src="<?php echo $logoimage; ?>" width=600 height=60></amp-img>
       <?php } else { ?>
       <h1 class="article-site-title"><?php echo get_bloginfo('name'); ?></h1>
       <?php } ?>

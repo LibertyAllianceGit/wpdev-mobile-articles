@@ -1,12 +1,17 @@
 <?php
 // Post Material Setup
+$site = get_bloginfo('name');
+$siteurl = get_bloginfo('url');
 $postid = $post->ID;
 $url = get_permalink($postid);
 $shorturl = wp_get_shortlink($postid);
 $title = $post->post_title;
 $date = $post->post_date;
+$excerpt = get_the_excerpt($postid);
 $postcats = wp_get_post_categories($postid);
 $postdate = get_the_date('F j, Y', $postid);
+$postpub = get_the_date('c', $postid);
+$postmod = get_the_modified_date('c', $postid);
 $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'wpdev_mobile_amp' );
 $authid = $post->post_author;
 $author = get_the_author_meta('display_name', $authid);
@@ -38,7 +43,7 @@ include plugin_dir_path(__FILE__) . 'amp-parts/amp-content-clean.php'; ?>
     <!-- Article Image -->
     <?php if(!empty($image)) { ?>
     <div class="article-image">
-      <amp-img src="<?php echo $image[0]; ?>" width=600 height=350 layout="responsive"></amp-img>
+      <amp-img src="<?php echo $image[0]; ?>" width=696 height=406 layout="responsive"></amp-img>
     </div>
     <?php } ?>
     <!-- Article Body -->
