@@ -62,8 +62,8 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
           	'orderby'                => 'date',
           	'meta_query'             => array(
           		array(
-          			'key'       => 'wpdev_fb_instant_enable_article_for_instant_articles',
-          			'value'     => 'enable-article-for-instant-articles',
+          			'key'       => 'wpdev_mobile_articles_instant_articles',
+          			'value'     => 'instant-articles',
           		),
           	),
           );

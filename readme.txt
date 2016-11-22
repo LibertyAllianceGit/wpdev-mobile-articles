@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.3.0
+* Major bug fix. Update highly recommended.
+
 = 1.2.3 =
 * Admin CSS tweaks.
 * Added enabled status column on post list page.
