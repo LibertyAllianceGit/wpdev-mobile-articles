@@ -26,6 +26,10 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.2.3 =
+* Admin CSS tweaks.
+* Added enabled status column on post list page.
+
 = 1.2.2 =
 * Schema.org header information addition.
 * Image size tweak. New image size, 696px wide by 406px high.

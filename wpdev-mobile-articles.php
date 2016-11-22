@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.2.2
+Version: 1.2.3
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -173,6 +173,48 @@ function wpdev_mobile_articles_save( $post_id ) {
 }
 add_action( 'save_post', 'wpdev_mobile_articles_save' );
 
+
+/**
+Create Post List Column
+**/
+// ADD NEW COLUMN
+function wpdev_mobile_columns_head($defaults) {
+    $defaults['mobile'] = 'Mobile';
+    return $defaults;
+}
+add_filter('manage_posts_columns', 'wpdev_mobile_columns_head');
+
+// SHOW THE FEATURED IMAGE
+function wpdev_mobile_columns_content($column_name, $post_ID) {
+    if ($column_name == 'mobile') {
+        $fbenabled = get_post_meta( $post_ID, 'wpdev_mobile_articles_instant_articles', true );
+        $ampenabled = get_post_meta( $post_ID, 'wpdev_mobile_articles_amp', true );
+        if($fbenabled == 'instant-articles' && $ampenabled == 'amp') {
+          $fbclass = ' wpdev-mobile-facebook-active';
+          $ampclass = ' wpdev-mobile-amp-active';
+        } elseif($fbenabled == 'instant-article' && empty($ampenabled)) {
+          $fbclass = ' wpdev-mobile-facebook-active';
+          $ampclass = '';
+        } elseif($ampenabled == 'instant-article' && empty($fbenabled)) {
+          $fbclass = '';
+          $ampclass = ' wpdev-mobile-amp-active';
+        } else {
+          $fbclass = '';
+          $ampclass = '';
+        }
+
+        echo '<span class="wpdev-mobile-dot wpdev-mobile-facebook-dot' . $fbclass . '">&middot;</span><span class="wpdev-mobile-dot wpdev-mobile-amp-dot' . $ampclass . '">&middot;</span>';
+    }
+}
+add_action('manage_posts_custom_column', 'wpdev_mobile_columns_content', 10, 2);
+
+// Add Styles
+function wpdev_mobile_column_width() {
+    echo '<style type="text/css">';
+    echo 'span.wpdev-mobile-dot{font-size:98px;color:rgba(51,51,51,.25);line-height:0;vertical-align:middle}.wpdev-mobile-facebook-active{color:#3b5998!important}.wpdev-mobile-amp-active{color:#0379C4!important}td.mobile.column-mobile,th#mobile{max-width:50px!important;min-width:51px!important;width:50px;text-align:center;overflow:hidden}@media screen and (max-width:782px){span.wpdev-mobile-dot{vertical-align:top}td.mobile.column-mobile,th#mobile{text-align:left}}';
+    echo '</style>';
+}
+add_action('admin_head', 'wpdev_mobile_column_width');
 
 /**
 AMP Rendering
