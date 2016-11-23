@@ -25,8 +25,10 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 == Screenshots ==
 
 == Changelog ==
+= 1.3.1 =
+* AMP bug fix.
 
-= 1.3.0
+= 1.3.0 =
 * Major bug fix. Update highly recommended.
 
 = 1.2.3 =
