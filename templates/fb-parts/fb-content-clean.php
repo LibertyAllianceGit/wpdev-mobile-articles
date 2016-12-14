@@ -125,6 +125,8 @@ $patternclean = array(
   "/(<p>\[caption.*?\]<a.*?\"><img.*?src=\")(.*?)(\".*?<\/a>)(.*?)(\[\/caption.*?<\/p>)/",
   "/(<p>\[caption.*?\]<img.*?src=\")(.*?)(\".*?\/>)(.*?)(\[\/caption.*?<\/p>)/",
   "/(<p.*?>\[.*?\]<\/p>)/",
+  "/(<p><iframe.*?src=\")(.*?facebook.*?post.*?)(\".*?width=\")(.*?)(\".*?height=\")(.*?)(\".*?<\/iframe><\/p>)/",
+  "/(<p><iframe.*?src=\")(.*?facebook.*?video.*?)(\".*?width=\")(.*?)(\".*?height=\")(.*?)(\".*?<\/iframe><\/p>)/",
   "/(<p><iframe.*?src=\")(.*?vine\.co.*?)(\".*?><\/iframe><script.*?<\/script><\/p>)/",
   "/(<blockquote.*?twitter-tweet\"|<blockquote.*?instagram-media\")/",
   "/(<p><script.*?src=\")(.*?platform.instagram.*?|.*?platform.twitter.*?)(\".*?<\/script><\/p>)/",
@@ -233,16 +235,18 @@ $replaceclean = array(
   "$2", // Keep Content, Remove source
   "$2", // Keep Content, Remove span
   "$2", // Keep Content, Remove u
-  "<p>$2</p>", // Replace H3
-  "<p>$2</p>", // Replace H4
-  "<p>$2</p>", // Replace H5
-  "<p>$2</p>", // Replace H6 https://www.youtube.com/watch?v=ztmF73bri_s
+  "<p><strong>$2</strong></p>", // Replace H3
+  "<p><strong>$2</strong></p>", // Replace H4
+  "<p><strong>$2</strong></p>", // Replace H5
+  "<p><strong>$2</strong></p>", // Replace H6 https://www.youtube.com/watch?v=ztmF73bri_s
   "<p>", // Remove Classes in p
   "<figure><img src=\"$2\" /></figure>", // Setup img with link
   "<figure><img src=\"$2\" /></figure>", // Setup img without link
   "<figure><img src=\"$2\" /><figcaption class=\"op-vertical-below\"><cite class=\"op-vertical-below op-center\">$4</cite></figcaption></figure>", // Setup img with caption and with link
   "<figure><img src=\"$2\" /><figcaption class=\"op-vertical-below\"><cite class=\"op-vertical-below op-center\">$4</cite></figcaption></figure>", // Setup img with caption and without link
   "", // Remove shortcodes
+  "<figure class=\"op-interactive\"><iframe style=\"border: none; overflow: hidden;\" src=\"$2\" width=\"$4\" height=\"$6\" frameborder=\"0\" scrolling=\"no\"></iframe></figure>", // Embed Facebook Post
+  "<figure class=\"op-interactive\"><iframe src=\"$2\" width=\"$4\" height=\"$6\" style=\"border:none;overflow:hidden;\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allowFullScreen=\"true\"></iframe></figure>", // Embed Facebook Video
   "<figure class=\"op-interactive\"><iframe src=\"$2\" width=\"600\" height=\"600\"></iframe></figure>", // Vine embed
   "<figure class=\"op-interactive\"><iframe>$0", // Instagram/Twitter embed start
   "$0</iframe></figure>", // Instagram/Twitter embed end
@@ -250,7 +254,7 @@ $replaceclean = array(
   <script async src=\"//platform.twitter.com/widgets.js\" charset=\"utf-8\"></script></iframe></figure>", // Twitter Link Embed
   "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"$2\"></iframe></figure>", // YouTube embed
   "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"$2\"></iframe></figure>", // YouTube embed link
-  "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/watch?v=$3\"></iframe></figure>", // YouTube embed link
+  "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/$3\"></iframe></figure>", // YouTube embed link
   "", // Remove empty p
 );
 $cleanedcontent = preg_replace($patternclean, $replaceclean, $entitycontent); ?>

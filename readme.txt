@@ -25,6 +25,10 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 == Screenshots ==
 
 == Changelog ==
+
+= 1.3.2 =
+* Facebook embed code fix.
+
 = 1.3.1 =
 * AMP bug fix.
 
