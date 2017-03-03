@@ -5,6 +5,7 @@ $headerfont = $wpdev_mobile_options['header_font_1']; // Header Font
 $bodyfont = $wpdev_mobile_options['body_font_2']; // Body Font
 $highlightcolor = $wpdev_mobile_options['highlight_color_3']; // Highlight Color
 $ampanalyticsscript = $wpdev_mobile_options['amp_google_analytics_tracking_id_19'];
+$adsenseauto = $wpdev_mobile_options['clientid_adsense_autoplacement_for_amp_4'];
 
 if(!empty($highlightcolor)) {
   $color = $highlightcolor;
@@ -168,7 +169,10 @@ if($headerfont == $bodyfont) {
 <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
 <?php if(!empty($ampanalyticsscript)) { ?>
 <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-<?php } ?>
+<?php }
+      if(!empty($adsenseauto)) { ?>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>    
+<?php }?>
 <script async custom-element="amp-facebook" src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"></script>
 <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
 <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>

@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.3.3 =
+* Added AdSense auto placement.
+
 = 1.3.2 =
 * Facebook embed code fix.
 

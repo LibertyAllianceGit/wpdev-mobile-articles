@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.3.2
+Version: 1.3.3
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -393,6 +393,22 @@ class WPDevMobile {
 			'wpdev_mobile_amp_settings_section' // section
 		);
 
+    add_settings_field(
+			'enable_adsense_autoplacement_for_amp_4', // id
+			'Enable AdSense Autoplacement for AMP', // title
+			array( $this, 'enable_adsense_autoplacement_for_amp_4_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_amp_settings_section' // section
+		);
+
+    add_settings_field(
+			'clientid_adsense_autoplacement_for_amp_4', // id
+			'AdSense Publisher ID', // title
+			array( $this, 'clientid_adsense_autoplacement_for_amp_4_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_amp_settings_section' // section
+		);
+
 		add_settings_field(
 			'dfp_ad_1_12', // id
 			'DFP Ad 1', // title
@@ -610,6 +626,14 @@ class WPDevMobile {
 		if ( isset( $input['footer_advertising_link_11'] ) ) {
 			$sanitary_values['footer_advertising_link_11'] = sanitize_text_field( $input['footer_advertising_link_11'] );
 		}
+
+    if ( isset( $input['enable_adsense_autoplacement_for_amp_4'] ) ) {
+			$sanitary_values['enable_adsense_autoplacement_for_amp_4'] = $input['enable_adsense_autoplacement_for_amp_4'];
+		}
+
+    if ( isset( $input['clientid_adsense_autoplacement_for_amp_4'] ) ) {
+      $sanitary_values['clientid_adsense_autoplacement_for_amp_4'] = sanitize_text_field( $input['clientid_adsense_autoplacement_for_amp_4'] );
+    }
 
 		if ( isset( $input['dfp_ad_1_12'] ) ) {
 			$sanitary_values['dfp_ad_1_12'] = sanitize_text_field( $input['dfp_ad_1_12'] );
@@ -839,6 +863,20 @@ class WPDevMobile {
 		printf(
 			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[footer_advertising_link_11]" id="footer_advertising_link_11" value="%s"><label for="footer_advertising_link_11">Add the advertising page URL for an advertising page link in the footer.</label>',
 			isset( $this->wpdev_mobile_options['footer_advertising_link_11'] ) ? esc_attr( $this->wpdev_mobile_options['footer_advertising_link_11']) : ''
+		);
+	}
+
+  public function enable_adsense_autoplacement_for_amp_4_callback() {
+		printf(
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_adsense_autoplacement_for_amp_4]" id="enable_adsense_autoplacement_for_amp_4" value="enable_adsense_autoplacement_for_amp_4" %s><label for="enable_adsense_autoplacement_for_amp_4">Enable automatic ad placement of AdSense ads for AMP.</label>',
+			( isset( $this->wpdev_mobile_options['enable_adsense_autoplacement_for_amp_4'] ) && $this->wpdev_mobile_options['enable_adsense_autoplacement_for_amp_4'] === 'enable_adsense_autoplacement_for_amp_4' ) ? 'checked' : ''
+		);
+	}
+
+  public function clientid_adsense_autoplacement_for_amp_4_callback() {
+		printf(
+			'<input class="regular-text" type="text" placeholder="ca-pub-123456789" name="wpdev_mobile_option_name[clientid_adsense_autoplacement_for_amp_4]" id="clientid_adsense_autoplacement_for_amp_4" value="%s"><label for="clientid_adsense_autoplacement_for_amp_4">Add the width, height, and ad slot for the DFP ad, separated by commas.</label>',
+			isset( $this->wpdev_mobile_options['clientid_adsense_autoplacement_for_amp_4'] ) ? esc_attr( $this->wpdev_mobile_options['clientid_adsense_autoplacement_for_amp_4']) : ''
 		);
 	}
 

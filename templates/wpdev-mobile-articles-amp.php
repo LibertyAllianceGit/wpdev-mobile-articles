@@ -20,6 +20,10 @@ $sharefb = plugin_dir_url( __FILE__ ) . 'images/wpdev-article-facebookshare.jpg'
 $sharetw = plugin_dir_url( __FILE__ ) . 'images/wpdev-article-twittershare.jpg';
 $shareem = plugin_dir_url( __FILE__ ) . 'images/wpdev-article-emailshare.jpg';
 
+$wpdev_mobile_options = get_option( 'wpdev_mobile_option_name' ); // Array of All Options
+$adsenseauto = $wpdev_mobile_options['clientid_adsense_autoplacement_for_amp_4'];
+$adsenseautoid = $wpdev_mobile_options['clientid_adsense_autoplacement_for_amp_4'];
+
 // Content Cleaning
 include plugin_dir_path(__FILE__) . 'amp-parts/amp-content-clean.php'; ?>
 <!-- START AMP HTML -->
@@ -29,6 +33,13 @@ include plugin_dir_path(__FILE__) . 'amp-parts/amp-content-clean.php'; ?>
     <?php include plugin_dir_path(__FILE__) . 'amp-parts/amp-head.php'; ?>
   </head>
   <body>
+    <!-- AdSense Auto Ads -->
+    <?php if(!empty($adsenseauto)) { ?>
+      <amp-auto-ads
+        type="adsense"
+        data-ad-client="<?php echo $adsenseautoid; ?>">
+      </amp-auto-ads>
+    <?php } ?>
     <!-- Article Header -->
     <div class="article-600">
       <!-- Site Logo -->
