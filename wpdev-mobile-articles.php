@@ -962,7 +962,7 @@ class WPDevMobile {
 		);
 	}
 
-  public function facebook_verification_code_callback() {
+  public function facebook_verification_code_20_callback() {
 		printf(
 			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[facebook_verification_code_20]" id="number_of_posts_20" value="%s"><label for="facebook_verification_code_20">Output verification code in head for Facebook Instant Articles.</label>',
 			isset( $this->wpdev_mobile_options['facebook_verification_code_20'] ) ? esc_attr( $this->wpdev_mobile_options['facebook_verification_code_20']) : ''
@@ -1049,3 +1049,16 @@ class WPDevMobile {
 }
 if ( is_admin() )
 	$wpdev_mobile = new WPDevMobile();
+
+/**
+Facebook Verification Code Output
+**/
+function wpdev_fb_verification_code() {
+  $wpdev_mobile_options = get_option( 'wpdev_mobile_option_name' ); // Array of All Options
+  $fbverify = $wpdev_mobile_options['facebook_verification_code_20'];
+
+  if(!empty($fbverify)) {
+    echo $fbverify;
+  }
+}
+add_action('wp_head', 'wpdev_fb_verification_code', 3);
