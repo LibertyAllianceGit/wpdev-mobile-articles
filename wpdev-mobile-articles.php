@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.3.4
+Version: 1.3.5
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -100,13 +100,6 @@ function wpdev_mobile_articles_amp_header() {
     } else {
       // Nothing. It's not enabled for Google AMP, so we won't let them know.
     }
-  }
-
-  $wpdev_mobile_options = get_option( 'wpdev_mobile_option_name' ); // Array of All Options
-  $fbverify = $wpdev_mobile_options['facebook_verification_code_20'];
-
-  if(!empty($fbverify)) {
-    echo $fbverify;
   }
 }
 add_action('wp_head', 'wpdev_mobile_articles_amp_header', 2);
@@ -964,7 +957,7 @@ class WPDevMobile {
 
   public function facebook_verification_code_20_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[facebook_verification_code_20]" id="number_of_posts_20" value="%s"><label for="facebook_verification_code_20">Output verification code in head for Facebook Instant Articles.</label>',
+			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[facebook_verification_code_20]" id="facebook_verification_code_20" value="%s"><label for="facebook_verification_code_20">Facebook verification code to be output in head of site.</label>',
 			isset( $this->wpdev_mobile_options['facebook_verification_code_20'] ) ? esc_attr( $this->wpdev_mobile_options['facebook_verification_code_20']) : ''
 		);
 	}
