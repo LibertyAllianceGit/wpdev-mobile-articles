@@ -1051,7 +1051,7 @@ function wpdev_fb_verification_code() {
   $fbverify = $wpdev_mobile_options['facebook_verification_code_20'];
 
   if(!empty($fbverify)) {
-    echo $fbverify;
+    echo '<meta property="fb:pages" content="' . $fbverify . '" />';
   }
 }
 add_action('wp_head', 'wpdev_fb_verification_code', 3);
