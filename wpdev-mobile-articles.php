@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.3.3
+Version: 1.3.4
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -100,6 +100,13 @@ function wpdev_mobile_articles_amp_header() {
     } else {
       // Nothing. It's not enabled for Google AMP, so we won't let them know.
     }
+  }
+
+  $wpdev_mobile_options = get_option( 'wpdev_mobile_option_name' ); // Array of All Options
+  $fbverify = $wpdev_mobile_options['facebook_verification_code_20'];
+
+  if(!empty($fbverify)) {
+    echo $fbverify;
   }
 }
 add_action('wp_head', 'wpdev_mobile_articles_amp_header', 2);
@@ -488,6 +495,14 @@ class WPDevMobile {
 			'wpdev-mobile-admin' // page
 		);
 
+    add_settings_field(
+			'facebook_verification_code_20', // id
+			'Facebook Verification Code', // title
+			array( $this, 'facebook_verification_code_20_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_fbia_settings_section' // section
+		);
+
 		add_settings_field(
 			'number_of_posts_20', // id
 			'Number of Posts', // title
@@ -669,6 +684,10 @@ class WPDevMobile {
 
 		if ( isset( $input['amp_google_analytics_tracking_id_19'] ) ) {
 			$sanitary_values['amp_google_analytics_tracking_id_19'] = sanitize_text_field( $input['amp_google_analytics_tracking_id_19'] );
+		}
+
+    if ( isset( $input['facebook_verification_code_20'] ) ) {
+			$sanitary_values['facebook_verification_code_20'] = sanitize_text_field( $input['facebook_verification_code_20'] );
 		}
 
 		if ( isset( $input['number_of_posts_20'] ) ) {
@@ -940,6 +959,13 @@ class WPDevMobile {
 		printf(
 			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[amp_google_analytics_tracking_id_19]" id="amp_google_analytics_tracking_id_19" value="%s"><label for="amp_google_analytics_tracking_id_19">Add the Google Analytics tracking ID.</label>',
 			isset( $this->wpdev_mobile_options['amp_google_analytics_tracking_id_19'] ) ? esc_attr( $this->wpdev_mobile_options['amp_google_analytics_tracking_id_19']) : ''
+		);
+	}
+
+  public function facebook_verification_code_callback() {
+		printf(
+			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[facebook_verification_code_20]" id="number_of_posts_20" value="%s"><label for="facebook_verification_code_20">Output verification code in head for Facebook Instant Articles.</label>',
+			isset( $this->wpdev_mobile_options['facebook_verification_code_20'] ) ? esc_attr( $this->wpdev_mobile_options['facebook_verification_code_20']) : ''
 		);
 	}
 
