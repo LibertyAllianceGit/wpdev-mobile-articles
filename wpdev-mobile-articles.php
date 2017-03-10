@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.3.5
+Version: 1.3.6
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
