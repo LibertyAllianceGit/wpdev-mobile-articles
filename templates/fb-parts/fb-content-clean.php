@@ -17,8 +17,8 @@ $entities = array(
 $entitycontent = str_replace($entities, '', $pcontent);
 // Clean the Content
 $patternclean = array(
-  "/[.*?]/",
   "/([.*?])(.*?)([\/.*?])",
+  "/[.*?]/",
   "/<abrr.*?>.*?<\/abbr>/",
   "/<acronym.*?>.*?<\/acronym>/",
   "/<applet.*?>.*?<\/applet>/",
@@ -139,8 +139,8 @@ $patternclean = array(
   "/(<p><\/p>)/",
 );
 $replaceclean = array(
-  "", // Remove shortcodes
   "$2", // Remove surrounding shortcodes
+  "", // Remove shortcodes
   "", // Remove abrr
   "", // Remove acronym
   "", // Remove applet
