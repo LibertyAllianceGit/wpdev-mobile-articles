@@ -17,8 +17,8 @@ $entities = array(
 $entitycontent = str_replace($entities, '', $pcontent);
 // Clean the Content
 $patternclean = array(
-  "/([.*?])(.*?)([\/.*?])",
-  "/[.*?]/",
+  "/(\[.*?\])(.*?)(\[\/.*?\])/",
+  "/\[.*?\]/",
   "/<abrr.*?>.*?<\/abbr>/",
   "/<acronym.*?>.*?<\/acronym>/",
   "/<applet.*?>.*?<\/applet>/",

@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.3.7 =
+* Urgent bug fix.
+
 = 1.3.6 =
 * Removal of shortcodes from Facebook Instant Articles content.
 
