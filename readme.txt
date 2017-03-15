@@ -2,8 +2,8 @@
 Contributors: TylerJohnsonLA, TedSlaterLA
 Tags: liberty alliance, google amp, facebook, instant articles
 Requires at least: 4.0
-Tested up to: 4.6.1
-Stable tag: 4.6.1
+Tested up to: 4.7.3
+Stable tag: 4.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,11 +26,10 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
-= 1.3.7 =
-* Urgent bug fix.
-
-= 1.3.6 =
-* Removal of shortcodes from Facebook Instant Articles content.
+= 1.4.0 =
+* Compatibility with WordPress 4.7+.
+* Updated regex for iFrames.
+* Updated ad placement logic and output.
 
 = 1.3.5 =
 * Bug fixes.

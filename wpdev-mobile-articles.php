@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.3.7
+Version: 1.4.0
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -28,7 +28,11 @@ Plugin Activation & Deactivation
 
 // Create New RSS Feed for Instant Articles
 function wpdev_mobile_articles__feed() {
+    // Add Instant Articles Feed
     add_feed('instant', 'wpdev_mobile_articles__feed_template');
+    
+    // Add AMP Endpoint
+    add_rewrite_endpoint( 'amp', EP_PERMALINK | EP_PAGES );
 }
 add_action('init', 'wpdev_mobile_articles__feed');
 
@@ -41,9 +45,6 @@ function wpdev_mobile_articles__feed_template() {
 function wpdev_mobile_articles__activate() {
   // Trigger Feed Creation
   wpdev_mobile_articles__feed();
-
-  // Add AMP Endpoint
-  add_rewrite_endpoint('amp', EP_PERMALINK);
 
   // Trigger Permalink Flush
   flush_rewrite_rules();
@@ -62,32 +63,17 @@ register_deactivation_hook(__FILE__, 'wpdev_mobile_articles__deactivate');
 Plugin Endpoint Creation
 **/
 
-// Create Query Variable for AMP Endpoint
-function wpdev_mobile_articles_query_vars($vars) {
-  $vars[] = "amp";
-  return $vars;
-}
-add_filter('query_vars', 'wpdev_mobile_articles_query_vars');
-
-// Create Template for AMP
-function wpdev_mobile_articles_amp_template($templates = "") {
+function wpdev_mobile_articles_amp_template() {
     global $wp_query;
-    if(!isset($wp_query->query['amp']))
-        return $templates;
-
-    if(!is_array($templates) && !empty($templates)) {
-        $templates = plugin_dir_path( __FILE__ ) . 'templates/wpdev-mobile-articles-amp.php';
-    }
-    elseif(empty($templates)) {
-        $templates = plugin_dir_path( __FILE__ ) . 'templates/wpdev-mobile-articles-amp.php';
-    }
-    else {
-        $new_template = locate_template(array("test.php"));
-        if(!empty($new_template)) array_unshift($templates,$new_template);
-    }
-    return $templates;
+    
+    if(!isset($wp_query->query_vars['amp']) || ! is_singular())
+        return;
+    
+    // Get the custom AMP template
+    include plugin_dir_path( __FILE__ ) . 'templates/wpdev-mobile-articles-amp.php';
+    exit;
 }
-add_filter( 'single_template', 'wpdev_mobile_articles_amp_template' );
+add_action('template_redirect', 'wpdev_mobile_articles_amp_template');
 
 // Add AMP Header Code
 function wpdev_mobile_articles_amp_header() {

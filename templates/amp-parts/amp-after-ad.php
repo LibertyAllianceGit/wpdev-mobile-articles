@@ -30,8 +30,8 @@ $adsense_ad3 = explode(',',$adsense_ad3_grab);
 $adsensead3_out = '<amp-ad width=' . $adsense_ad3[0] . ' height=' . $adsense_ad3[1] . ' type="adsense" data-ad-client="' . $adsense_ad3[2] . '" data-ad-slot="' . $adsense_ad3[3] . '"></amp-ad>';
 }
 
-if ($i < 15 && !empty($adsense_ad3)) { echo $adsense_ad3; }
+if ($i < 15 && !empty($adsense_ad3)) { echo $adsensead3_out; }
 elseif ($i < 12 && !empty($dfpad3_out)) { echo $dfpad3_out; }
-elseif ($i < 9 && !empty($adsense_ad2)) { echo $adsense_ad2; }
+elseif ($i < 9 && !empty($adsense_ad2)) { echo $adsensead2_out; }
 elseif ($i < 6 && !empty($dfpad2_out)) { echo $dfpad2_out; }
-elseif ($i < 3 && !empty($adsense_ad1)) { echo $adsense_ad1; } ?>
+elseif ($i < 3 && !empty($adsense_ad1)) { echo $adsensead1_out; } ?>

@@ -1,6 +1,7 @@
 <?php
 // Get the Content
-$getcontent = apply_filters( 'the_content', $post->post_content );
+$thecontent = get_post_field( 'post_content', $postid );
+$getcontent = apply_filters( 'the_content', $thecontent );
 $pcontent = wpautop( $getcontent );
 
 // Remove Entities from Content
@@ -132,7 +133,7 @@ $patternclean = array(
   "/(<p>.*?iframe.*?youtu.*?embed\/)(.*?)(\".*?<\/p>|\?.*?<\/p>)/",
   "/(<iframe.*?src=\".*?facebook.*?post.*?href=.*?facebook.*?%2F)(.*?)(%2Fposts%2F)(.*?)(&.*?\".*?width=\")(.*?)(\".*?height=\")(.*?)(\".*?<\/iframe>)/",
   "/(<iframe.*?src=\".*?facebook.*?video.*?href=.*?facebook.*?\/)(.*?)(\/videos\/)(.*?)(&.*?\".*?width=\")(.*?)(\".*?height=\")(.*?)(\".*?<\/iframe>)/",
-  "/(<iframe)(.*?)(<\/iframe>)/",
+  "/(<iframe)(.*?)(><\/iframe>)/",
   "/style=\".*?\"/",
   "/(<p><\/p>)/",
 );

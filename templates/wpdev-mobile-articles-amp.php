@@ -1,19 +1,20 @@
 <?php
+global $wp_query;
 // Post Material Setup
 $site = get_bloginfo('name');
 $siteurl = get_bloginfo('url');
-$postid = $post->ID;
-$url = get_permalink($postid);
-$shorturl = wp_get_shortlink($postid);
-$title = $post->post_title;
-$date = $post->post_date;
-$excerpt = get_the_excerpt($postid);
-$postcats = wp_get_post_categories($postid);
-$postdate = get_the_date('F j, Y', $postid);
-$postpub = get_the_date('c', $postid);
-$postmod = get_the_modified_date('c', $postid);
-$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'wpdev_mobile_amp' );
-$authid = $post->post_author;
+$url = get_permalink();
+$shorturl = wp_get_shortlink();
+$title = get_the_title();
+$date = get_the_date();
+$postid = get_the_ID();
+$excerpt = get_the_excerpt();
+$postcats = wp_get_post_categories();
+$postdate = get_the_date('F j, Y');
+$postpub = get_the_date('c');
+$postmod = get_the_modified_date('c');
+$image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'wpdev_mobile_amp' );
+$authid = get_post_field( 'post_author', $postid );
 $author = get_the_author_meta('display_name', $authid);
 $authorlink = get_author_posts_url($authid);
 $sharefb = plugin_dir_url( __FILE__ ) . 'images/wpdev-article-facebookshare.jpg';
