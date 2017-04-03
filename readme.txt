@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.4.2 =
+* Bug fixes.
+
 = 1.4.1 =
 * Added field for additional tracking codes.
 
