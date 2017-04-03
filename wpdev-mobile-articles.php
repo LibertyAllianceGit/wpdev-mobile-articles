@@ -3,12 +3,12 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.4.0
+Version: 1.4.1
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
 Text Domain: wpdevfbmobile
-Copyright 2016 WP Developers. All Rights Reserved.
+Copyright 2017 WP Developers. All Rights Reserved.
 */
 
 /**
@@ -553,6 +553,14 @@ class WPDevMobile {
 			'wpdev-mobile-admin', // page
 			'wpdev_mobile_fbia_settings_section' // section
 		);
+        
+        add_settings_field(
+			'additional_analytics_tracking_code_28', // id
+			'Additional Analytics Tracking Code', // title
+			array( $this, 'additional_analytics_tracking_code_28_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_fbia_settings_section' // section
+		);
 
 		add_settings_field(
 			'enable_subscribe_button_for_fbia_29', // id
@@ -704,6 +712,10 @@ class WPDevMobile {
 		if ( isset( $input['enable_google_analytics_group_tracking_28'] ) ) {
 			$sanitary_values['enable_google_analytics_group_tracking_28'] = $input['enable_google_analytics_group_tracking_28'];
 		}
+        
+        if ( isset( $input['additional_analytics_tracking_code_28'] ) ) {
+            $sanitary_values['additional_analytics_tracking_code_28'] = $input['additional_analytics_tracking_code_28'];
+        }
 
 		if ( isset( $input['enable_subscribe_button_for_fbia_29'] ) ) {
 			$sanitary_values['enable_subscribe_button_for_fbia_29'] = $input['enable_subscribe_button_for_fbia_29'];
@@ -1010,6 +1022,12 @@ class WPDevMobile {
 			( isset( $this->wpdev_mobile_options['enable_google_analytics_group_tracking_28'] ) && $this->wpdev_mobile_options['enable_google_analytics_group_tracking_28'] === 'enable_google_analytics_group_tracking_28' ) ? 'checked' : ''
 		);
 	}
+    
+    public function additional_analytics_tracking_code_28_callback() {
+        printf(
+            '<textarea class="regular-text" type="textarea" name="wpdev_mobile_option_name[additional_analytics_tracking_code_28]" id="additional_analytics_tracking_code_28" value="%s"><label for="additional_analytics_tracking_code_28">For additional tracking codes. Enter the scripts here.</label>', ( isset( $this->wpdev_mobile_options['additional_analytics_tracking_code_28'] ) ? esc_attr( $this->wpdev_mobile_options['additional_analytics_tracking_code_28']) : ''
+        );
+    }
 
 	public function enable_subscribe_button_for_fbia_29_callback() {
 		printf(
