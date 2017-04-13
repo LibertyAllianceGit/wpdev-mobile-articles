@@ -13,8 +13,6 @@ $enableanalytics = $wpdev_mobile_options['enable_google_analytics_tracking_26'];
 $fbiaanalytics_id = $wpdev_mobile_options['fbia_google_analytics_tracking_id_27']; // FBIA Google Analytics Tracking ID
 $analyticsgroup = $wpdev_mobile_options['enable_google_analytics_group_tracking_28']; // Enable Google Analytics Group Tracking
 $additionaltrack = $wpdev_mobile_options['additional_analytics_tracking_code_28']; // Additional tracking codes
-$fbiasubscribebutton = $wpdev_mobile_options['enable_subscribe_button_for_fbia_29']; // Enable Subscribe Button for FBIA
-$fbiasubscribelink = $wpdev_mobile_options['subscribe_button_link_for_fbia_30']; // Subscribe Button Link for FBIA
 
 /**
 Setup Plugin Variables
@@ -148,10 +146,6 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
                                         </header>
                                     <!-- body -->
                                     <?php echo $cleanedcontent; ?>
-                                    <?php if(!empty($fbiasubscribebutton) && !empty($fbiasubscribelink)) { ?>
-                                    <!-- Buttons -->
-                                    <p><a href="<?php echo $fbiasubscribelink; ?>" target="_blank" style="border: 1px solid black; color: #000; text-decoration: none; font-weight: bold; font-size: 1rem; width: 100%; display: block; text-align: center; padding: 0.6rem;">Subscribe to <?php echo get_bloginfo('name'); ?> Now!</a></p>
-                                    <?php } ?>
                                     <?php if(!empty($enableanalytics) && !empty($fbiaanalytics_id) || !empty($additionaltrack) && !empty($enableanalytics)) { ?>
                                       <!-- Analytics -->
                                         <figure class="op-tracker">

@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.4.2
+Version: 1.4.3
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -562,21 +562,6 @@ class WPDevMobile {
 			'wpdev_mobile_fbia_settings_section' // section
 		);
 
-		add_settings_field(
-			'enable_subscribe_button_for_fbia_29', // id
-			'Enable Subscribe Button for FBIA', // title
-			array( $this, 'enable_subscribe_button_for_fbia_29_callback' ), // callback
-			'wpdev-mobile-admin', // page
-			'wpdev_mobile_fbia_settings_section' // section
-		);
-
-		add_settings_field(
-			'subscribe_button_link_for_fbia_30', // id
-			'Subscribe Button Link for FBIA', // title
-			array( $this, 'subscribe_button_link_for_fbia_30_callback' ), // callback
-			'wpdev-mobile-admin', // page
-			'wpdev_mobile_fbia_settings_section' // section
-		);
 	}
 
 	public function wpdev_mobile_sanitize($input) {
@@ -715,14 +700,6 @@ class WPDevMobile {
         
         if ( isset( $input['additional_analytics_tracking_code_28'] ) ) {
 			$sanitary_values['additional_analytics_tracking_code_28'] = esc_textarea( $input['additional_analytics_tracking_code_28'] );
-		}
-
-		if ( isset( $input['enable_subscribe_button_for_fbia_29'] ) ) {
-			$sanitary_values['enable_subscribe_button_for_fbia_29'] = $input['enable_subscribe_button_for_fbia_29'];
-		}
-
-		if ( isset( $input['subscribe_button_link_for_fbia_30'] ) ) {
-			$sanitary_values['subscribe_button_link_for_fbia_30'] = sanitize_text_field( $input['subscribe_button_link_for_fbia_30'] );
 		}
 
 		return $sanitary_values;
@@ -1027,20 +1004,6 @@ class WPDevMobile {
 		printf(
 			'<textarea class="large-text" rows="5" name="wpdev_mobile_option_name[additional_analytics_tracking_code_28]" id="additional_analytics_tracking_code_28">%s</textarea><label for="additional_analytics_tracking_code_28">For additional tracking codes. Enter the scripts here.</label>',
 			isset( $this->wpdev_mobile_options['additional_analytics_tracking_code_28'] ) ? esc_attr( $this->wpdev_mobile_options['additional_analytics_tracking_code_28']) : ''
-		);
-	}
-
-	public function enable_subscribe_button_for_fbia_29_callback() {
-		printf(
-			'<input type="checkbox" name="wpdev_mobile_option_name[enable_subscribe_button_for_fbia_29]" id="enable_subscribe_button_for_fbia_29" value="enable_subscribe_button_for_fbia_29" %s> <label for="enable_subscribe_button_for_fbia_29">For specific Facebook Instant Articles data in Google Analytics</label>',
-			( isset( $this->wpdev_mobile_options['enable_subscribe_button_for_fbia_29'] ) && $this->wpdev_mobile_options['enable_subscribe_button_for_fbia_29'] === 'enable_subscribe_button_for_fbia_29' ) ? 'checked' : ''
-		);
-	}
-
-	public function subscribe_button_link_for_fbia_30_callback() {
-		printf(
-			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[subscribe_button_link_for_fbia_30]" id="subscribe_button_link_for_fbia_30" value="%s"><label for="subscribe_button_link_for_fbia_30">Enter the URL for the subscribe page. If empty, button will not display.</label>',
-			isset( $this->wpdev_mobile_options['subscribe_button_link_for_fbia_30'] ) ? esc_attr( $this->wpdev_mobile_options['subscribe_button_link_for_fbia_30']) : ''
 		);
 	}
 
