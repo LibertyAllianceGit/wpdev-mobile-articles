@@ -152,6 +152,9 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
                                             <iframe>
                                               <?php if(!empty($enableanalytics) && !empty($fbiaanalytics_id)) { ?>
                                               <script>
+                                                var shareURL = ia_document.shareURL;
+                                                var resURL = shareURL.replace(/(http.*?\?utm_source=)/g, '');
+
                                                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                                                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                                                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -161,6 +164,10 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
                                                 <?php if(!empty($analyticsgroup)) { ?>
                                                 ga('set', 'contentGroup1', 'Instant Articles');
                                                 <?php } ?>
+                                                if(resURL !== 'undefined' && resURL !== 'null' && resURL.indexOf('http') !== 0) {
+                                                ga('set', 'campaignSource', resURL);
+                                                ga('set', 'campaignMedium', 'Instant Article');
+                                                }
                                                 ga('send', 'pageview');
                                               </script>
                                               <?php } ?>
