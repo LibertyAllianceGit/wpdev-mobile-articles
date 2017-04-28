@@ -153,7 +153,38 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
                                               <?php if(!empty($enableanalytics) && !empty($fbiaanalytics_id)) { ?>
                                               <script>
                                                 var shareURL = ia_document.shareURL;
-                                                var resURL = shareURL.replace(/(http.*?\?utm_source=)/g, '');
+                                                var srcURL = shareURL.replace(/(http.*?\?)(.*utm_source=)((.*?)(\&.*)|(.*))/g, '$4');
+                                                var medURL = shareURL.replace(/(http.*?\?)(.*utm_medium=)((.*?)(\&.*)|(.*))/g, '$4');
+                                                var camURL = shareURL.replace(/(http.*?\?)(.*utm_campaign=)((.*?)(\&.*)|(.*))/g, '$4');
+                                                var terURL = shareURL.replace(/(http.*?\?)(.*utm_term=)((.*?)(\&.*)|(.*))/g, '$4');
+                                                var conURL = shareURL.replace(/(http.*?\?)(.*utm_content=)((.*?)(\&.*)|(.*))/g, '$4');
+
+                                                // Check replaces
+                                                if(srcURL == 'undefined' || srcURL == 'null' || srcURL == '') {
+                                                    fixsrcURL = shareURL.replace(/(http.*?\?)(.*utm_source=)((.*?)(\&.*)|(.*))/g, '$6');
+                                                } else {
+                                                    fixsrcURL = srcURL;
+                                                }
+                                                if(medURL == 'undefined' || medURL == 'null' || medURL == '') {
+                                                    fixmedURL = shareURL.replace(/(http.*?\?)(.*utm_medium=)((.*?)(\&.*)|(.*))/g, '$6');
+                                                } else {
+                                                    fixmedURL = medURL;
+                                                }
+                                                if(camURL == 'undefined' || camURL == 'null' || camURL == '') {
+                                                    fixcamURL = shareURL.replace(/(http.*?\?)(.*utm_campaign=)((.*?)(\&.*)|(.*))/g, '$6');
+                                                } else {
+                                                    fixcamURL = camURL;
+                                                }
+                                                if(terURL == 'undefined' || terURL == 'null' || terURL == '') {
+                                                    fixterURL = shareURL.replace(/(http.*?\?)(.*utm_term=)((.*?)(\&.*)|(.*))/g, '$6');
+                                                } else {
+                                                    fixterURL = terURL;
+                                                }
+                                                if(conURL == 'undefined' || conURL == 'null' || conURL == '') {
+                                                    fixconURL = shareURL.replace(/(http.*?\?)(.*utm_content=)((.*?)(\&.*)|(.*))/g, '$6');
+                                                } else {
+                                                    fixconURL = conURL;
+                                                }
 
                                                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                                                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -164,10 +195,27 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
                                                 <?php if(!empty($analyticsgroup)) { ?>
                                                 ga('set', 'contentGroup1', 'Instant Articles');
                                                 <?php } ?>
-                                                if(resURL !== 'undefined' && resURL !== 'null' && resURL.indexOf('http') !== 0) {
-                                                ga('set', 'campaignSource', resURL);
-                                                ga('set', 'campaignMedium', 'Instant Article');
+                                                // Output GA
+                                                if(fixsrcURL !== 'undefined' && fixsrcURL !== 'null' && fixsrcURL !== '' && fixsrcURL.indexOf('http') !== 0) {
+                                                ga('set', 'campaignSource', fixsrcURL);
                                                 }
+
+                                                if(fixmedURL !== 'undefined' && fixmedURL !== 'null' && fixmedURL !== '' && fixmedURL.indexOf('http') !== 0) {
+                                                ga('set', 'campaignMedium', fixmedURL);
+                                                }
+
+                                                if(fixcamURL !== 'undefined' && fixcamURL !== 'null' && fixcamURL !== '' && fixcamURL.indexOf('http') !== 0) {
+                                                ga('set', 'campaignName', fixcamURL);
+                                                }
+
+                                                if(fixterURL !== 'undefined' && fixterURL !== 'null' && fixterURL !== '' && fixterURL.indexOf('http') !== 0) {
+                                                ga('set', 'campaignKeyword', fixterURL);
+                                                }
+
+                                                if(fixconURL !== 'undefined' && fixconURL !== 'null' && fixconURL !== '' && fixconURL.indexOf('http') !== 0) {
+                                                ga('set', 'campaignContent', fixconURL);
+                                                }
+                                                
                                                 ga('send', 'pageview');
                                               </script>
                                               <?php } ?>
