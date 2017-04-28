@@ -100,6 +100,7 @@ $patternclean = array(
   "/<var.*?>.*?<\/var>/",
   "/<wbr.*?>.*?<\/wbr>/",
   "/&mdash;/",
+  "/<share.*?>.*?<\/share>/",
   "/(<strong.*?>)(.*?)(<\/strong.*?>)/",
   "/(<b.*?>)(.*?)(<\/b.*?>)/",
   "/(<address.*?>)(.*?)(<\/address.*?>)/",
@@ -220,6 +221,7 @@ $replaceclean = array(
   "", // Remove var
   "", // Remove wbr
   "", // Remove &mdash;
+  "", // Remove share
   "$2", // Keep Content, Remove strong
   "$2", // Keep Content, Remove b
   "$2", // Keep Content, Remove address

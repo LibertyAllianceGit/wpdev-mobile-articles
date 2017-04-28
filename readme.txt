@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.4.5 =
+* Regex tweak.
+
 = 1.4.4 =
 * Added UTM tracking support.
 
