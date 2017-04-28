@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.4.6
+Version: 1.4.7
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -282,6 +282,14 @@ class WPDevMobile {
 			array( $this, 'wpdev_mobile_section_info' ), // callback
 			'wpdev-mobile-admin' // page
 		);
+        
+        add_settings_field(
+			'enable_amp_default', // id
+			'Enable AMP by Default', // title
+			array( $this, 'enable_amp_default_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_amp_settings_section' // section
+		);
 
 		add_settings_field(
 			'logo_image_0', // id
@@ -473,8 +481,16 @@ class WPDevMobile {
 			array( $this, 'wpdev_mobile_section_info' ), // callback
 			'wpdev-mobile-admin' // page
 		);
+        
+        add_settings_field(
+			'enable_facebook_default', // id
+			'Enable Facebook by Default', // title
+			array( $this, 'enable_facebook_default_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_fbia_settings_section' // section
+		);
 
-    add_settings_field(
+        add_settings_field(
 			'facebook_verification_code_20', // id
 			'Facebook Verification Code', // title
 			array( $this, 'facebook_verification_code_20_callback' ), // callback
@@ -566,6 +582,11 @@ class WPDevMobile {
 
 	public function wpdev_mobile_sanitize($input) {
 		$sanitary_values = array();
+            
+        if ( isset( $input['enable_amp_default'] ) ) {
+			$sanitary_values['enable_amp_default'] = $input['enable_amp_default'];
+		}
+        
 		if ( isset( $input['logo_image_0'] ) ) {
 			$sanitary_values['logo_image_0'] = sanitize_text_field( $input['logo_image_0'] );
 		}
@@ -650,7 +671,7 @@ class WPDevMobile {
 			$sanitary_values['revcontent_ad_18'] = sanitize_text_field( $input['revcontent_ad_18'] );
 		}
 
-    if ( isset( $input['taboola_ad_18'] ) ) {
+        if ( isset( $input['taboola_ad_18'] ) ) {
 			$sanitary_values['taboola_ad_18'] = sanitize_text_field( $input['taboola_ad_18'] );
 		}
 
@@ -658,8 +679,12 @@ class WPDevMobile {
 			$sanitary_values['amp_google_analytics_tracking_id_19'] = sanitize_text_field( $input['amp_google_analytics_tracking_id_19'] );
 		}
 
-    if ( isset( $input['facebook_verification_code_20'] ) ) {
+        if ( isset( $input['facebook_verification_code_20'] ) ) {
 			$sanitary_values['facebook_verification_code_20'] = sanitize_text_field( $input['facebook_verification_code_20'] );
+		}
+            
+        if ( isset( $input['enable_facebook_default'] ) ) {
+			$sanitary_values['enable_facebook_default'] = $input['enable_facebook_default'];
 		}
 
 		if ( isset( $input['number_of_posts_20'] ) ) {
@@ -707,6 +732,13 @@ class WPDevMobile {
 
 	public function wpdev_mobile_section_info() {
 
+	}
+    
+    public function enable_amp_default_callback() {
+		printf(
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_amp_default]" id="enable_amp_default" value="enable_amp_default" %s><label for="enable_amp_default">Enable to set AMP to on by default for new posts.</label>',
+			( isset( $this->wpdev_mobile_options['enable_amp_default'] ) && $this->wpdev_mobile_options['enable_amp_default'] === 'enable_amp_default' ) ? 'checked' : ''
+		);
 	}
 
 	public function logo_image_0_callback() {
@@ -929,8 +961,15 @@ class WPDevMobile {
 			isset( $this->wpdev_mobile_options['amp_google_analytics_tracking_id_19'] ) ? esc_attr( $this->wpdev_mobile_options['amp_google_analytics_tracking_id_19']) : ''
 		);
 	}
+        
+    public function enable_facebook_default_callback() {
+		printf(
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_facebook_default]" id="enable_facebook_default" value="enable_facebook_default" %s> <label for="enable_facebook_default">Enable to set Instant Articles to on by default for new posts.</label>',
+			( isset( $this->wpdev_mobile_options['enable_facebook_default'] ) && $this->wpdev_mobile_options['enable_facebook_default'] === 'enable_facebook_default' ) ? 'checked' : ''
+		);
+	}
 
-  public function facebook_verification_code_20_callback() {
+    public function facebook_verification_code_20_callback() {
 		printf(
 			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[facebook_verification_code_20]" id="facebook_verification_code_20" value="%s"><label for="facebook_verification_code_20">Facebook verification code to be output in head of site.</label>',
 			isset( $this->wpdev_mobile_options['facebook_verification_code_20'] ) ? esc_attr( $this->wpdev_mobile_options['facebook_verification_code_20']) : ''
@@ -1023,3 +1062,31 @@ function wpdev_fb_verification_code() {
   }
 }
 add_action('wp_head', 'wpdev_fb_verification_code', 3);
+
+/**
+Enable Facebook or AMP by Default
+**/
+function wpdev_admin_head_js() {
+    // Variables
+    $wpdev_mobile_options = get_option( 'wpdev_mobile_option_name' ); // Array of All Options
+    $enamp = $wpdev_mobile_options['enable_amp_default'];
+    $enfbia = $wpdev_mobile_options['enable_facebook_default'];
+    
+    $script = '
+    <script type="text/javascript">
+        jQuery(document).ready(function() {';
+    if(!empty($enfbia)) {
+    $script .= '
+        jQuery(\'input#wpdev_mobile_articles_instant_articles\').attr(\'checked\', true);';
+    }
+    if(!empty($enamp)) {
+    $script .= '
+        jQuery(\'input#wpdev_mobile_articles_amp\').attr(\'checked\', true);';
+    }
+    $script .= '
+        });
+    </script>';
+    
+    echo $script;
+}
+add_action('admin_head', 'wpdev_admin_head_js');
