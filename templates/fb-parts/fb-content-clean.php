@@ -135,6 +135,7 @@ $patternclean = array(
   "/(<p><iframe.*?src=\")(.*?youtu.*?)(\".*?<\/iframe><\/p>)/",
   "/(<p>)(.*?youtube.*?)(<\/p>)/",
   "/(<p>)(.*?youtu..*?\/)(.*?)(<\/p>)/",
+  "/(<p.*?>)(http.*facebook.*videos.*?)(<\/p>)/",
   "/(<p><\/p>)/",
 );
 $replaceclean = array(
@@ -257,6 +258,7 @@ $replaceclean = array(
   "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"$2\"></iframe></figure>", // YouTube embed
   "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"$2\"></iframe></figure>", // YouTube embed link
   "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/$3\"></iframe></figure>", // YouTube embed link
+  "<figure class=\"op-interactive\"><iframe src=\"$2\" width=\"560\" height=\"315\" style=\"border:none;overflow:hidden;\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allowFullScreen=\"true\"></iframe></figure>", // Facebook video embed
   "", // Remove empty p
 );
 $cleanedcontent = preg_replace($patternclean, $replaceclean, $entitycontent); ?>
