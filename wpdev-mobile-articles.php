@@ -1047,8 +1047,32 @@ class WPDevMobile {
 	}
 
 }
-if ( is_admin() )
-	$wpdev_mobile = new WPDevMobile();
+
+/**
+Admin Access Check
+**/
+function wpdev_fbamp_admin_check() {
+    // List of authorized users
+    $userlist = array('tyler@klicked.com', 'tyler@libertyalliance.com', 'tyler@wpdevelopers.com', 'ted@klicked.com', 'ted@libertyalliance.com', 'ted@patriotads.com', 'jared@klicked.com', 'jared@libertyalliance.com', 'jared@wpdevelopers.com', 'jared@patriotads.com');
+    // ID Check
+    $idarray = array();
+    foreach ($userlist as $user) {
+        $userid = get_user_by('email', $user);
+        $idarray[] = $userid->ID;
+    }
+    // Get current user
+    $currentuser = get_current_user_id();
+
+    // Check for users
+    if(is_array($idarray) && in_array($currentuser, $idarray) && is_admin()) {
+        $wpdev_mobile = new WPDevMobile();
+    } elseif($currentuser == $idarray && is_admin()) {
+        $wpdev_mobile = new WPDevMobile();
+    } else {
+        // No admin page for you. You're not authorized.
+    }
+}
+add_action('init', 'wpdev_fbamp_admin_check');
 
 /**
 Facebook Verification Code Output
