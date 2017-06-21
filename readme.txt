@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.5.0 =
+* Settings update and additional bug fixes.
+
 = 1.4.9 =
 * Admin settings update and bug fixes.
 

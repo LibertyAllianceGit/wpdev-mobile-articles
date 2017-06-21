@@ -3,13 +3,17 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.4.9
+Version: 1.5.0
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
 Text Domain: wpdevfbmobile
 Copyright 2017 WP Developers. All Rights Reserved.
 */
+
+/**
+NOTE: Software and code is only usable by Klicked Media, Patriot Ad Network, Bravera, or Romulus websites only. All other sites outside of the network are unauthorized and will incur a fine if used.
+**/
 
 /**
 Plugin Update
@@ -70,7 +74,9 @@ function wpdev_mobile_articles_amp_template() {
         return;
     
     // Get the custom AMP template
-    include plugin_dir_path( __FILE__ ) . 'templates/wpdev-mobile-articles-amp.php';
+    if(wpdev_file_check() == '1') {
+        include plugin_dir_path( __FILE__ ) . 'templates/wpdev-mobile-articles-amp.php';
+    }
     exit;
 }
 add_action('template_redirect', 'wpdev_mobile_articles_amp_template');
@@ -97,8 +103,32 @@ function wpdev_mobile_articles_files() {
         wp_enqueue_style( 'wpdev-mobile-articles-admin-css', plugin_dir_url(__FILE__) . 'inc/wpdev-mobile-articles-admin.css' );
         wp_enqueue_script( 'wpdev-mobile-articles-admin-js', plugin_dir_url(__FILE__) . 'inc/wpdev-mobile-articles-admin.js', array('jquery'), '1.0.0', true );
 }
+if(wpdev_file_check() == '1') {
 add_action('admin_enqueue_scripts', 'wpdev_mobile_articles_files', 20);
+}
 
+function wpdev_file_check() {
+    $check = get_transient('wpdev-check-fbia');
+    
+    if(empty($check)) {
+        $site = 'https://klicked.com/api/';
+        $json = file_get_contents($site);
+        $data = json_decode($json, true);
+        $test = $data[get_bloginfo('url')];
+        
+        if($test == '1') {
+            $valid = $test;
+            set_transient('wpdev-check-fbia', $test, 60*60*12);
+        } else {
+            $valid = '0';
+            set_transient('wpdev-check-fbia', '0', 60*60*12);
+        }
+    } else {
+        $valid = $check;
+    }
+    
+    return $valid;
+}
 
 /**
 Create Meta Box
@@ -127,7 +157,9 @@ function wpdev_mobile_articles_add_meta_box() {
 		'high'
 	);
 }
-add_action( 'add_meta_boxes', 'wpdev_mobile_articles_add_meta_box' );
+if(wpdev_file_check() == '1') {
+    add_action( 'add_meta_boxes', 'wpdev_mobile_articles_add_meta_box' );
+}
 
 // Create Meta Box HTML
 function wpdev_mobile_articles_html( $post) {
@@ -505,6 +537,8 @@ class WPDevMobile {
 			'wpdev-mobile-admin', // page
 			'wpdev_mobile_fbia_settings_section' // section
 		);
+        
+        if(wpdev_file_check() == '1') {
 
 		add_settings_field(
 			'enable_facebook_ads_21', // id
@@ -545,6 +579,8 @@ class WPDevMobile {
 			'wpdev-mobile-admin', // page
 			'wpdev_mobile_fbia_settings_section' // section
 		);
+            
+        }
 
 		add_settings_field(
 			'enable_google_analytics_tracking_26', // id
@@ -1064,9 +1100,9 @@ function wpdev_fbamp_admin_check() {
     $currentuser = get_current_user_id();
 
     // Check for users
-    if(is_array($idarray) && in_array($currentuser, $idarray) && is_admin()) {
+    if(is_array($idarray) && in_array($currentuser, $idarray) && is_admin() && wpdev_file_check() == '1') {
         $wpdev_mobile = new WPDevMobile();
-    } elseif($currentuser == $idarray && is_admin()) {
+    } elseif($currentuser == $idarray && is_admin() && wpdev_file_check() == '1') {
         $wpdev_mobile = new WPDevMobile();
     } else {
         // No admin page for you. You're not authorized.

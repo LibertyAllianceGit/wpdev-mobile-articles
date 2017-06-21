@@ -1,4 +1,5 @@
 <?php
+if(wpdev_file_check() == '1') {
 // Get the Content
 $getcontent = get_the_content();
 $pcontent = wpautop( $getcontent );
@@ -261,4 +262,5 @@ $replaceclean = array(
   "<figure class=\"op-interactive\"><iframe src=\"$2\" width=\"560\" height=\"315\" style=\"border:none;overflow:hidden;\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allowFullScreen=\"true\"></iframe></figure>", // Facebook video embed
   "", // Remove empty p
 );
-$cleanedcontent = preg_replace($patternclean, $replaceclean, $entitycontent); ?>
+$cleanedcontent = preg_replace($patternclean, $replaceclean, $entitycontent);
+} ?>

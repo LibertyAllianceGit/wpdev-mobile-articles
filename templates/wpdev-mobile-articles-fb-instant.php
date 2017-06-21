@@ -2,6 +2,7 @@
 /**
 Grab Plugin Variables
 **/
+if(wpdev_file_check() == '1') {
 $wpdev_mobile_options = get_option( 'wpdev_mobile_option_name' ); // Array of All Options
 $numberposts = $wpdev_mobile_options['number_of_posts_20']; // Number of Posts
 $enablefacebookads = $wpdev_mobile_options['enable_facebook_ads_21']; // Enable Facebook Ads
@@ -13,6 +14,7 @@ $enableanalytics = $wpdev_mobile_options['enable_google_analytics_tracking_26'];
 $fbiaanalytics_id = $wpdev_mobile_options['fbia_google_analytics_tracking_id_27']; // FBIA Google Analytics Tracking ID
 $analyticsgroup = $wpdev_mobile_options['enable_google_analytics_group_tracking_28']; // Enable Google Analytics Group Tracking
 $additionaltrack = $wpdev_mobile_options['additional_analytics_tracking_code_28']; // Additional tracking codes
+}
 
 /**
 Setup Plugin Variables
@@ -43,7 +45,7 @@ header('Content-Type: '.feed_content_type('rss-http').'; charset='.get_option('b
 echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 ?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-<?php do_action('rss2_ns'); ?>
+<?php if(wpdev_file_check() == '1') { do_action('rss2_ns'); } ?>
 <channel>
         <title><?php bloginfo_rss('name'); ?></title>
         <link><?php bloginfo_rss('url'); ?></link>
@@ -71,7 +73,7 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
           $instantarticles = new WP_Query( $args );
 
           // The Loop
-          if ( $instantarticles->have_posts() ) {
+          if ( $instantarticles->have_posts() && wpdev_file_check == '1' ) {
           	while ( $instantarticles->have_posts() ) {
           		$instantarticles->the_post();
 
