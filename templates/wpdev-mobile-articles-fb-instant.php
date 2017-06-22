@@ -73,7 +73,7 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
           $instantarticles = new WP_Query( $args );
 
           // The Loop
-          if ( $instantarticles->have_posts() && wpdev_file_check == '1' ) {
+          if ( $instantarticles->have_posts() && wpdev_file_check() == '1' ) {
           	while ( $instantarticles->have_posts() ) {
           		$instantarticles->the_post();
 
