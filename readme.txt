@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.5.2 =
+* Regex bug fix. Algorithm bug fix.
+
 = 1.5.1 =
 * Bug fix. Urgent!
 

@@ -1,7 +1,7 @@
 <?php
 if(wpdev_file_check() == '1') {
 // Get the Content
-$getcontent = get_the_content();
+$getcontent = strip_shortcodes(get_the_content());
 $pcontent = wpautop( $getcontent );
 $entities = array(
 "&nbsp;",
@@ -18,6 +18,7 @@ $entities = array(
 $entitycontent = str_replace($entities, '', $pcontent);
 // Clean the Content
 $patternclean = array(
+  "/<!--more-->/",
   "/<abrr.*?>.*?<\/abbr>/",
   "/<acronym.*?>.*?<\/acronym>/",
   "/<applet.*?>.*?<\/applet>/",
@@ -134,12 +135,13 @@ $patternclean = array(
   "/(<p><script.*?src=\")(.*?platform.instagram.*?|.*?platform.twitter.*?)(\".*?<\/script><\/p>)/",
   "/(<p>)(https.*?twitter.*?)(<\/p>)/",
   "/(<p><iframe.*?src=\")(.*?youtu.*?)(\".*?<\/iframe><\/p>)/",
-  "/(<p>)(.*?youtube.*?)(<\/p>)/",
+  "/(<p.*?>)(.*?youtu.*?\?v=)(.*)(<\/p>)/",
   "/(<p>)(.*?youtu..*?\/)(.*?)(<\/p>)/",
   "/(<p.*?>)(http.*facebook.*videos.*?)(<\/p>)/",
   "/(<p><\/p>)/",
 );
 $replaceclean = array(
+  "", // Remove <!--more-->
   "", // Remove abrr
   "", // Remove acronym
   "", // Remove applet
@@ -242,7 +244,7 @@ $replaceclean = array(
   "<p><strong>$2</strong></p>", // Replace H3
   "<p><strong>$2</strong></p>", // Replace H4
   "<p><strong>$2</strong></p>", // Replace H5
-  "<p><strong>$2</strong></p>", // Replace H6 https://www.youtube.com/watch?v=ztmF73bri_s
+  "<p><strong>$2</strong></p>", // Replace H6
   "<p>", // Remove Classes in p
   "<figure><img src=\"$2\" /></figure>", // Setup img with link
   "<figure><img src=\"$2\" /></figure>", // Setup img without link
@@ -257,7 +259,7 @@ $replaceclean = array(
   "<figure class=\"op-interactive\"><iframe><blockquote class=\"twitter-tweet\" data-lang=\"en\"><p lang=\"en\" dir=\"ltr\"><a href=\"$2\"></a></blockquote>
   <script async src=\"//platform.twitter.com/widgets.js\" charset=\"utf-8\"></script></iframe></figure>", // Twitter Link Embed
   "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"$2\"></iframe></figure>", // YouTube embed
-  "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"$2\"></iframe></figure>", // YouTube embed link
+  "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/$3\"></iframe></figure>", // YouTube embed link
   "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/$3\"></iframe></figure>", // YouTube embed link
   "<figure class=\"op-interactive\"><iframe src=\"$2\" width=\"560\" height=\"315\" style=\"border:none;overflow:hidden;\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allowFullScreen=\"true\"></iframe></figure>", // Facebook video embed
   "", // Remove empty p
