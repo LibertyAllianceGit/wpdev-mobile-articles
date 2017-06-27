@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.5.3 =
+* Bug fix. Display active articles in Posts page column.
+
 = 1.5.2 =
 * Regex bug fix. Algorithm bug fix.
 

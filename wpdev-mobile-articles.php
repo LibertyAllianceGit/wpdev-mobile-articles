@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.5.2
+Version: 1.5.3
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -210,10 +210,10 @@ function wpdev_mobile_columns_content($column_name, $post_ID) {
         if($fbenabled == 'instant-articles' && $ampenabled == 'amp') {
           $fbclass = ' wpdev-mobile-facebook-active';
           $ampclass = ' wpdev-mobile-amp-active';
-        } elseif($fbenabled == 'instant-article' && empty($ampenabled)) {
+        } elseif($fbenabled == 'instant-articles' && empty($ampenabled)) {
           $fbclass = ' wpdev-mobile-facebook-active';
           $ampclass = '';
-        } elseif($ampenabled == 'instant-article' && empty($fbenabled)) {
+        } elseif($ampenabled == 'instant-articles' && empty($fbenabled)) {
           $fbclass = '';
           $ampclass = ' wpdev-mobile-amp-active';
         } else {
