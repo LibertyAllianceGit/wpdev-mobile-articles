@@ -10,6 +10,8 @@ $facebook_ad1 = $wpdev_mobile_options['facebook_ad_placement_id_1_22']; // Faceb
 $facebook_ad2 = $wpdev_mobile_options['facebook_ad_placement_id_2_23']; // Facebook Ad Placement ID 2
 $facebook_ad3 = $wpdev_mobile_options['facebook_ad_placement_id_3_24']; // Facebook Ad Placement ID 3
 $facebook_ad4 = $wpdev_mobile_options['facebook_ad_placement_id_4_25']; // Facebook Ad Placement ID 4
+$enablerecirculate = $wpdev_mobile_options['enable_facebook_ads_recirculation_21']; // Enable Facebook Recirculation Ad
+$facebook_recirc = $wpdev_mobile_options['facebook_ad_placement_id_4_recirculation_25']; // Facebook Recirculation Ad Placement
 $enableanalytics = $wpdev_mobile_options['enable_google_analytics_tracking_26']; // Enable Google Analytics Tracking
 $fbiaanalytics_id = $wpdev_mobile_options['fbia_google_analytics_tracking_id_27']; // FBIA Google Analytics Tracking ID
 $analyticsgroup = $wpdev_mobile_options['enable_google_analytics_group_tracking_28']; // Enable Google Analytics Group Tracking
@@ -102,7 +104,10 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
                                   <meta charset="utf-8">
                                   <link rel="canonical" href="<?php echo get_permalink(); ?>">
                                   <meta property="op:markup_version" content="v1.0">
-                                  <meta property="fb:use_automatic_ad_placement" content="true">
+                                  <meta property="fb:use_automatic_ad_placement" content="enable=true ad_density=default">
+                                  <?php if(!empty($enablerecirculate)) { ?>
+                                  <meta property="fb:op-recirculation-ads" content="placement_id=<?php echo $facebook_recirc; ?>">
+                                  <?php } ?>
                                 </head>
                                 <body>
                                     <article>

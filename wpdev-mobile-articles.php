@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.5.3
+Version: 1.5.4
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -580,6 +580,22 @@ class WPDevMobile {
 			'wpdev_mobile_fbia_settings_section' // section
 		);
             
+        add_settings_field(
+			'enable_facebook_ads_recirculation_21', // id
+			'Enable Facebook Recirculation Ad', // title
+			array( $this, 'enable_facebook_ads_recirculation_21_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_fbia_settings_section' // section
+		);
+            
+        add_settings_field(
+			'facebook_ad_placement_id_4_recirculation_25', // id
+			'Facebook Recirculation Ad Placement', // title
+			array( $this, 'facebook_ad_placement_id_4_recirculation_25_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_fbia_settings_section' // section
+		);
+            
         }
 
 		add_settings_field(
@@ -745,6 +761,14 @@ class WPDevMobile {
 
 		if ( isset( $input['facebook_ad_placement_id_4_25'] ) ) {
 			$sanitary_values['facebook_ad_placement_id_4_25'] = sanitize_text_field( $input['facebook_ad_placement_id_4_25'] );
+		}
+        
+        if ( isset( $input['enable_facebook_ads_recirculation_21'] ) ) {
+			$sanitary_values['enable_facebook_ads_recirculation_21'] = $input['enable_facebook_ads_recirculation_21'];
+		}
+        
+        if ( isset( $input['facebook_ad_placement_id_4_recirculation_25'] ) ) {
+			$sanitary_values['facebook_ad_placement_id_4_recirculation_25'] = sanitize_text_field( $input['facebook_ad_placement_id_4_recirculation_25'] );
 		}
 
 		if ( isset( $input['enable_google_analytics_tracking_26'] ) ) {
@@ -1051,6 +1075,20 @@ class WPDevMobile {
 		printf(
 			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[facebook_ad_placement_id_4_25]" id="facebook_ad_placement_id_4_25" value="%s"><label for="facebook_ad_placement_id_4_25">Input the Facebook Ad placement ID.</label>',
 			isset( $this->wpdev_mobile_options['facebook_ad_placement_id_4_25'] ) ? esc_attr( $this->wpdev_mobile_options['facebook_ad_placement_id_4_25']) : ''
+		);
+	}
+    
+    public function enable_facebook_ads_recirculation_21_callback() {
+		printf(
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_facebook_ads_recirculation_21]" id="enable_facebook_ads_recirculation_21" value="enable_facebook_ads_recirculation_21" %s> <label for="enable_facebook_ads_recirculation_21">Enable Facebook Audience Recirculation Ad Placement.</label>',
+			( isset( $this->wpdev_mobile_options['enable_facebook_ads_recirculation_21'] ) && $this->wpdev_mobile_options['enable_facebook_ads_recirculation_21'] === 'enable_facebook_ads_recirculation_21' ) ? 'checked' : ''
+		);
+	}
+    
+    public function facebook_ad_placement_id_4_recirculation_25_callback() {
+		printf(
+			'<input class="regular-text" type="text" name="wpdev_mobile_option_name[facebook_ad_placement_id_4_recirculation_25]" id="facebook_ad_placement_id_4_recirculation_25" value="%s"><label for="facebook_ad_placement_id_4_recirculation_25">Input the Facebook Recirculation Ad placement ID.</label>',
+			isset( $this->wpdev_mobile_options['facebook_ad_placement_id_4_recirculation_25'] ) ? esc_attr( $this->wpdev_mobile_options['facebook_ad_placement_id_4_recirculation_25']) : ''
 		);
 	}
 
