@@ -252,7 +252,7 @@ $replaceclean = array(
   "<figure><img src=\"$2\" /><figcaption class=\"op-vertical-below\"><cite class=\"op-vertical-below op-center\">$4</cite></figcaption></figure>", // Setup img with caption and without link
   "", // Remove shortcodes
   "<figure class=\"op-interactive\"><iframe style=\"border: none; overflow: hidden;\" src=\"$2\" width=\"$4\" height=\"$6\" frameborder=\"0\" scrolling=\"no\"></iframe></figure>", // Embed Facebook Post
-  "<figure class=\"op-interactive\"><iframe src=\"$2\" width=\"$4\" height=\"$6\" style=\"border:none;overflow:hidden;\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allowFullScreen=\"true\"></iframe></figure>", // Embed Facebook Video
+  "<iframe src=\"https://www.facebook.com/plugins/video.php?href=$2&show_text=0&width=560\" width=\"560\" height=\"315\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allowFullScreen=\"true\"></iframe>", // Embed Facebook Video
   "<figure class=\"op-interactive\"><iframe src=\"$2\" width=\"600\" height=\"600\"></iframe></figure>", // Vine embed
   "<figure class=\"op-interactive\"><iframe>$0", // Instagram/Twitter embed start
   "$0</iframe></figure>", // Instagram/Twitter embed end

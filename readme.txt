@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.5.5 =
+* Bug fix. Updated Facebook embed code to match new embed code.
+
 = 1.5.4 =
 * Additional, special ad slot added for more revenue, as well as general bug fixes.
 
