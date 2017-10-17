@@ -133,6 +133,7 @@ $patternclean = array(
   "/(<p><iframe.*?src=\")(.*?vine\.co.*?)(\".*?><\/iframe><script.*?<\/script><\/p>)/",
   "/(<blockquote.*?twitter-tweet\"|<blockquote.*?instagram-media\")/",
   "/(<p><script.*?src=\")(.*?platform.instagram.*?|.*?platform.twitter.*?)(\".*?<\/script><\/p>)/",
+  "/(<p>.*?instagram.*?\/.*?\/)(.*?)(\/.*?<\/p>)/",
   "/(<p>)(https.*?twitter.*?)(<\/p>)/",
   "/(<p><iframe.*?src=\")(.*?youtu.*?)(\".*?<\/iframe><\/p>)/",
   "/(<p.*?>)(.*?youtu.*?\?v=)(.*)(<\/p>)/",
@@ -256,6 +257,7 @@ $replaceclean = array(
   "<figure class=\"op-interactive\"><iframe src=\"$2\" width=\"600\" height=\"600\"></iframe></figure>", // Vine embed
   "<figure class=\"op-interactive\"><iframe>$0", // Instagram/Twitter embed start
   "$0</iframe></figure>", // Instagram/Twitter embed end
+  "<figure class=\"op-interactive\"><iframe class=\"instagram-media instagram-media-rendered\" src=\"https://www.instagram.com/p/$2/embed/captioned/\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"background: rgb(255, 255, 255); border: 1px solid rgb(219, 219, 219); margin: 1px 1px 12px; max-width: 100%; width: calc(100% - 2px); border-radius: 4px; box-shadow: none; display: block; padding: 0px;\"></iframe></figure>", // Instagram link embed
   "<figure class=\"op-interactive\"><iframe><blockquote class=\"twitter-tweet\" data-lang=\"en\"><p lang=\"en\" dir=\"ltr\"><a href=\"$2\"></a></blockquote>
   <script async src=\"//platform.twitter.com/widgets.js\" charset=\"utf-8\"></script></iframe></figure>", // Twitter Link Embed
   "<figure class=\"op-interactive\"><iframe width=\"560\" height=\"315\" src=\"$2\"></iframe></figure>", // YouTube embed

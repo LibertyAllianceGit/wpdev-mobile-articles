@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.5.7 =
+* Instagram embed bug fix.
+
 = 1.5.6 =
 * Bug fix. Tweaked logic for finding Facebook embeds.
 
