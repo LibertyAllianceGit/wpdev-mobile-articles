@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.5.7
+Version: 1.5.8
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -163,15 +163,52 @@ if(wpdev_file_check() == '1') {
 
 // Create Meta Box HTML
 function wpdev_mobile_articles_html( $post) {
-	wp_nonce_field( '_wpdev_mobile_articles_nonce', 'wpdev_mobile_articles_nonce' ); ?>
+	wp_nonce_field( '_wpdev_mobile_articles_nonce', 'wpdev_mobile_articles_nonce' );
+    // List of authorized users
+    $userlist = array('tyler@klicked.com', 'tyler@libertyalliance.com', 'ted@klicked.com', 'ted@libertyalliance.com', 'ted@patriotads.com', 'jared@klicked.com', 'jared@libertyalliance.com', 'jared@wpdevelopers.com', 'jared@patriotads.com');
+    // ID Check
+    $idarray = array();
+    foreach ($userlist as $user) {
+        $userid = get_user_by('email', $user);
+        $idarray[] = $userid->ID;
+    }
+    // Get current user
+    $currentuser = get_current_user_id();
+    
+    // Variables
+    $wpdev_mobile_options = get_option( 'wpdev_mobile_option_name' ); // Array of All Options
+    $ampcheck = $wpdev_mobile_options['enable_amp_check'];
+    $fbiacheck = $wpdev_mobile_options['enable_facebook_check'];
 
-	<p>Enable the article for Facebook Instant Articles and/or Google Accelerated Mobile Pages.</p>
-	<p>
-		<input type="checkbox" name="wpdev_mobile_articles_instant_articles" id="wpdev_mobile_articles_instant_articles" value="instant-articles" <?php echo ( wpdev_mobile_articles_get_meta( 'wpdev_mobile_articles_instant_articles' ) === 'instant-articles' ) ? 'checked' : ''; ?>>
-		<label for="wpdev_mobile_articles_instant_articles"><?php _e( 'Facebook Instant Articles', 'wpdev_mobile_articles' ); ?></label>	</p>	<p>
+    // Check for users
+    if(is_array($idarray) && in_array($currentuser, $idarray) && is_admin() || $currentuser == $idarray && is_admin()) { ?>
+        <p>Enable the article for Facebook Instant Articles and/or Google Accelerated Mobile Pages.</p>
+        <p>
+            <input type="checkbox" name="wpdev_mobile_articles_instant_articles" id="wpdev_mobile_articles_instant_articles" value="instant-articles" <?php echo ( wpdev_mobile_articles_get_meta( 'wpdev_mobile_articles_instant_articles' ) === 'instant-articles' ) ? 'checked' : ''; ?>>
+            <label for="wpdev_mobile_articles_instant_articles"><?php _e( 'Facebook Instant Articles', 'wpdev_mobile_articles' ); ?></label>	</p>	<p>
 
-		<input type="checkbox" name="wpdev_mobile_articles_amp" id="wpdev_mobile_articles_amp" value="amp" <?php echo ( wpdev_mobile_articles_get_meta( 'wpdev_mobile_articles_amp' ) === 'amp' ) ? 'checked' : ''; ?>>
-		<label for="wpdev_mobile_articles_amp"><?php _e( 'Google AMP', 'wpdev_mobile_articles' ); ?></label>	</p><?php
+            <input type="checkbox" name="wpdev_mobile_articles_amp" id="wpdev_mobile_articles_amp" value="amp" <?php echo ( wpdev_mobile_articles_get_meta( 'wpdev_mobile_articles_amp' ) === 'amp' ) ? 'checked' : ''; ?>>
+            <label for="wpdev_mobile_articles_amp"><?php _e( 'Google AMP', 'wpdev_mobile_articles' ); ?></label>	</p>
+    <?php
+    } else { 
+        if(empty($ampcheck) && empty($fbiacheck)) { ?>
+            <p>Checkboxes to enable Facebook Instant Articles and/or Google Accelerated Mobile Pages will be available when approved.</p>
+        <?php } else { ?>
+        <p>Enable the article for Facebook Instant Articles and/or Google Accelerated Mobile Pages.</p>
+        <?php if(!empty($fbiacheck)) { ?>
+        <p>
+            <input type="checkbox" name="wpdev_mobile_articles_instant_articles" id="wpdev_mobile_articles_instant_articles" value="instant-articles" <?php echo ( wpdev_mobile_articles_get_meta( 'wpdev_mobile_articles_instant_articles' ) === 'instant-articles' ) ? 'checked' : ''; ?>>
+            <label for="wpdev_mobile_articles_instant_articles"><?php _e( 'Facebook Instant Articles', 'wpdev_mobile_articles' ); ?></label>
+        </p>
+        <?php }
+        if(!empty($ampcheck)) { ?>              
+        <p>
+            <input type="checkbox" name="wpdev_mobile_articles_amp" id="wpdev_mobile_articles_amp" value="amp" <?php echo ( wpdev_mobile_articles_get_meta( 'wpdev_mobile_articles_amp' ) === 'amp' ) ? 'checked' : ''; ?>>
+            <label for="wpdev_mobile_articles_amp"><?php _e( 'Google AMP', 'wpdev_mobile_articles' ); ?></label>
+        </p>
+        <?php } ?>
+    <?php }
+    }
 }
 
 // Save Meta Box Information
@@ -319,6 +356,14 @@ class WPDevMobile {
 			'enable_amp_default', // id
 			'Enable AMP by Default', // title
 			array( $this, 'enable_amp_default_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_amp_settings_section' // section
+		);
+        
+        add_settings_field(
+			'enable_amp_check', // id
+			'Enable AMP Checkbox', // title
+			array( $this, 'enable_amp_check_callback' ), // callback
 			'wpdev-mobile-admin', // page
 			'wpdev_mobile_amp_settings_section' // section
 		);
@@ -521,6 +566,14 @@ class WPDevMobile {
 			'wpdev-mobile-admin', // page
 			'wpdev_mobile_fbia_settings_section' // section
 		);
+        
+        add_settings_field(
+			'enable_facebook_check', // id
+			'Enable Facebook by Default', // title
+			array( $this, 'enable_facebook_check_callback' ), // callback
+			'wpdev-mobile-admin', // page
+			'wpdev_mobile_fbia_settings_section' // section
+		);
 
         add_settings_field(
 			'facebook_verification_code_20', // id
@@ -639,6 +692,10 @@ class WPDevMobile {
 			$sanitary_values['enable_amp_default'] = $input['enable_amp_default'];
 		}
         
+        if ( isset( $input['enable_amp_check'] ) ) {
+			$sanitary_values['enable_amp_check'] = $input['enable_amp_check'];
+		}
+        
 		if ( isset( $input['logo_image_0'] ) ) {
 			$sanitary_values['logo_image_0'] = sanitize_text_field( $input['logo_image_0'] );
 		}
@@ -738,6 +795,10 @@ class WPDevMobile {
         if ( isset( $input['enable_facebook_default'] ) ) {
 			$sanitary_values['enable_facebook_default'] = $input['enable_facebook_default'];
 		}
+        
+        if ( isset( $input['enable_facebook_check'] ) ) {
+			$sanitary_values['enable_facebook_check'] = $input['enable_facebook_check'];
+		}
 
 		if ( isset( $input['number_of_posts_20'] ) ) {
 			$sanitary_values['number_of_posts_20'] = sanitize_text_field( $input['number_of_posts_20'] );
@@ -796,8 +857,15 @@ class WPDevMobile {
     
     public function enable_amp_default_callback() {
 		printf(
-			'<input type="checkbox" name="wpdev_mobile_option_name[enable_amp_default]" id="enable_amp_default" value="enable_amp_default" %s><label for="enable_amp_default">Enable to set AMP to on by default for new posts.</label>',
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_amp_default]" id="enable_amp_default" value="enable_amp_default" %s><label for="enable_amp_default">Enable the AMP checkbox.</label>',
 			( isset( $this->wpdev_mobile_options['enable_amp_default'] ) && $this->wpdev_mobile_options['enable_amp_default'] === 'enable_amp_default' ) ? 'checked' : ''
+		);
+	}
+
+    public function enable_amp_check_callback() {
+		printf(
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_amp_check]" id="enable_amp_check" value="enable_amp_check" %s><label for="enable_amp_check">Enable to set AMP to on by default for new posts.</label>',
+			( isset( $this->wpdev_mobile_options['enable_amp_check'] ) && $this->wpdev_mobile_options['enable_amp_check'] === 'enable_amp_check' ) ? 'checked' : ''
 		);
 	}
 
@@ -1026,6 +1094,13 @@ class WPDevMobile {
 		printf(
 			'<input type="checkbox" name="wpdev_mobile_option_name[enable_facebook_default]" id="enable_facebook_default" value="enable_facebook_default" %s> <label for="enable_facebook_default">Enable to set Instant Articles to on by default for new posts.</label>',
 			( isset( $this->wpdev_mobile_options['enable_facebook_default'] ) && $this->wpdev_mobile_options['enable_facebook_default'] === 'enable_facebook_default' ) ? 'checked' : ''
+		);
+	}
+    
+    public function enable_facebook_check_callback() {
+		printf(
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_facebook_check]" id="enable_facebook_check" value="enable_facebook_check" %s> <label for="enable_facebook_check">Enable Instant Articles Checkbox</label>',
+			( isset( $this->wpdev_mobile_options['enable_facebook_check'] ) && $this->wpdev_mobile_options['enable_facebook_check'] === 'enable_facebook_check' ) ? 'checked' : ''
 		);
 	}
 
