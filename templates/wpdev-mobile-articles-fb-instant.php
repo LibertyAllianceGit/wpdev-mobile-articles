@@ -154,7 +154,9 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
                                               <?php } ?>
                                             </header>
                                         <!-- body -->
-                                        <?php echo $cleanedcontent; ?>
+                                        <?php 
+                                        $cleanedcontent = apply_filters('klicked_fbia_content', get_the_content());
+                                        echo $cleanedcontent; ?>
                                         <?php if(!empty($enableanalytics) && !empty($fbiaanalytics_id) || !empty($additionaltrack) && !empty($enableanalytics)) { ?>
                                           <!-- Analytics -->
                                             <figure class="op-tracker">

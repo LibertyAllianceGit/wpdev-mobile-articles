@@ -26,6 +26,12 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.6.0 =
+* Faster, cleaner content.
+* All iFrames embed support.
+* Fox News video support.
+* Bug fixes.
+
 = 1.5.8 =
 * Admin edit. Removes access to checkboxes until sites are approved for certain platforms.
 
