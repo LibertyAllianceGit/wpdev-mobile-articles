@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.6.0
+Version: 1.6.1
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -1325,11 +1325,16 @@ oEmbed Filter
 **/
 function klicked_facebook_instant_article_oembed($html, $url, $attr, $post_id) {
     
-    // If YouTube or Vimeo
-    if(strpos($html, 'youtu') !== false || strpos($html, 'vimeo') !== false) {
-        return '<figure class="op-interactive">' . $html . '</figure>';
+    // Check to only run filter when running klicked_fbia_content filter
+    if(doing_filter('klicked_fbia_content')) {
+        // If YouTube or Vimeo
+        if(strpos($html, 'youtu') !== false || strpos($html, 'vimeo') !== false) {
+            return '<figure class="op-interactive">' . $html . '</figure>';
+        } else {
+            return '<figure class="op-interactive"><iframe>' . $html . '</iframe></figure>';
+        }
     } else {
-        return '<figure class="op-interactive"><iframe>' . $html . '</iframe></figure>';
+        return $html;
     }
     
 }

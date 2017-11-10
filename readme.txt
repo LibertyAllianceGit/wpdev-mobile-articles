@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.6.1 =
+* oEmbed bug fix.
+
 = 1.6.0 =
 * Faster, cleaner content.
 * All iFrames embed support.
