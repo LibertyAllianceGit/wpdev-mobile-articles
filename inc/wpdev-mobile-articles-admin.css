@@ -5,6 +5,7 @@ div#wpdev_mobile_articles-wpdev-mobile-articles h2 {background: #333333;color: #
 .ios-ui-select{border:none;height:36px;background:#ddd;-webkit-border-radius:18px;border-radius:18px;width:60px;-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-ms-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;transition:all .3s ease-in-out;-webkit-box-shadow:none;box-shadow:none;cursor:pointer;position:relative;display:inline-block}.ios-ui-select.checked{-webkit-box-shadow:inset 0 0 0 36px #3A9552;box-shadow:inset 0 0 0 36px #3A9552}.ios-ui-select.checked .inner{left:27px}.ios-ui-select .inner{width:30px;height:30px;position:absolute;top:3px;left:3px;-webkit-border-radius:100%;border-radius:100%;background:#fff;-webkit-transition:all 350ms cubic-bezier(0,.89,.44,1);-moz-transition:all 350ms cubic-bezier(0,.89,.44,1);-o-transition:all 350ms cubic-bezier(0,.89,.44,1);transition:all 350ms cubic-bezier(0,.89,.44,1);-webkit-box-shadow:0 1px 2px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.1);box-shadow:0 1px 2px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.1)}
 
 /* Admin Styles */
+/* Admin Styles */
 .wrap.wpdev-mobile-admin {
     background: #fff;
     padding: 1rem;
@@ -15,38 +16,23 @@ div#wpdev_mobile_articles-wpdev-mobile-articles h2 {background: #333333;color: #
     font-size: 0.9rem;
 }
 
-button.wpdev-button-amp, button.wpdev-button-fbia {
-    border: none;
-    font-size: 1rem;
-    color: #fff;
-    padding: 0.5rem 1.2rem;
-    cursor: pointer;
-    height: 37px;
-    width: 134px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-}
-
-button.wpdev-button-amp {
-    margin-right: 0.25rem;
-    background: #0379C4;
-}
-
-button.wpdev-button-fbia {
-    margin-left: 0.25rem;
-    background: #3b5998;
-}
-
-button.wpdev-button-amp:hover, button.wpdev-button-fbia:hover {
-    opacity: 0.9;
-}
-
 h2.amp-settings, h2.fbia-settings {
     color: #fff;
-    padding: 0.5rem;
+    padding: 15px;
     margin-bottom: 0;
     font-weight: normal;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.wrap.wpdev-mobile-admin a.wpdev-here {
+    background: #333333;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0px 10px;
+    display: inline-block;
+    text-decoration: none;
 }
 
 h2.amp-settings {
@@ -134,4 +120,8 @@ table.form-table.fbia-settings .ios-ui-select.checked {
 p.wpdev-mobile-copyright {
     color: rgba(51,51,51,0.5);
     font-size: 0.8rem !important;
+}
+
+table.form-table.hidden.amp-settings.visible, table.form-table.hidden.fbia-settings.visible {
+    display: block;
 }

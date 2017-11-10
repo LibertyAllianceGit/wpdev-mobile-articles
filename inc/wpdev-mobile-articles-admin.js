@@ -18,16 +18,17 @@ jQuery(function($) {
 
 jQuery(function($) {
     $(document).ready(function() {
-      $(".wpdev-mobile-admin form h2").first().addClass("amp-settings");
-      $(".wpdev-mobile-admin form h2").last().addClass("fbia-settings");
-      $(".wpdev-mobile-admin table.form-table").addClass("hidden");
-      $(".wpdev-mobile-admin table.form-table").first().addClass("amp-settings");
-      $(".wpdev-mobile-admin table.form-table").last().addClass("fbia-settings");
-    });
-    $("button.wpdev-button-amp").on("click", function(){
-        $(".wpdev-mobile-admin table.form-table").first().toggleClass("hidden");
-    });
-    $("button.wpdev-button-fbia").on("click", function(){
-        $(".wpdev-mobile-admin table.form-table").last().toggleClass("hidden");
+        $(".wpdev-mobile-admin form h2").first().addClass("amp-settings");
+        $(".wpdev-mobile-admin form h2").last().addClass("fbia-settings");
+        $(".wpdev-mobile-admin table.form-table").addClass("hidden");
+        $(".wpdev-mobile-admin table.form-table").first().addClass("amp-settings");
+        $(".wpdev-mobile-admin table.form-table").last().addClass("fbia-settings");
+
+        jQuery('h2.amp-settings').on('click', function() {
+            jQuery('table.amp-settings').toggleClass('visible');
+        });
+        jQuery('h2.fbia-settings').on('click', function() {
+            jQuery('table.fbia-settings').toggleClass('visible');
+        }); 
     });
 });

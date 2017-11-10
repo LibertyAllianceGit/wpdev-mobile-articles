@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.6.1
+Version: 1.6.2
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -323,8 +323,7 @@ class WPDevMobile {
 
 		<div class="wrap wpdev-mobile-admin">
 			<h2><img src="<?php echo plugin_dir_url(__FILE__) . 'inc/wpdevelopers-mobile-logo.png'; ?>" alt="WPDevelopers Mobile Articles"/></h2>
-			<p>Easily publish, monetize, and manage your content for Google AMP and Facebook Instant Articles directly from WordPress, with support for Google Analytics. You can access your AMP articles by adding /amp at the end of any article URL. You can also access your Instant Articles RSS feed by going <a href="<?php echo get_bloginfo('url'); ?>/feed/instant" target="_blank">here</a>.</p>
-      <button class="wpdev-button-amp">AMP Settings</button><button class="wpdev-button-fbia">FBIA Settings</button>
+			<p>Easily publish, monetize, and manage your content for Google AMP and Facebook Instant Articles directly from WordPress, with support for Google Analytics. You can access your AMP articles by adding /amp at the end of any article URL. You can also access your Instant Articles RSS feed by going <a href="<?php echo get_bloginfo('url'); ?>/feed/instant" target="_blank" class="wpdev-here">here</a></p>
 			<?php settings_errors(); ?>
 
 			<form method="post" action="options.php">
@@ -353,17 +352,17 @@ class WPDevMobile {
 		);
         
         add_settings_field(
-			'enable_amp_default', // id
-			'Enable AMP by Default', // title
-			array( $this, 'enable_amp_default_callback' ), // callback
+			'enable_amp_check', // id
+			'Enable AMP Checkbox', // title
+			array( $this, 'enable_amp_check_callback' ), // callback
 			'wpdev-mobile-admin', // page
 			'wpdev_mobile_amp_settings_section' // section
 		);
         
         add_settings_field(
-			'enable_amp_check', // id
-			'Enable AMP Checkbox', // title
-			array( $this, 'enable_amp_check_callback' ), // callback
+			'enable_amp_default', // id
+			'Enable AMP by Default', // title
+			array( $this, 'enable_amp_default_callback' ), // callback
 			'wpdev-mobile-admin', // page
 			'wpdev_mobile_amp_settings_section' // section
 		);
@@ -552,7 +551,7 @@ class WPDevMobile {
 			'wpdev_mobile_amp_settings_section' // section
 		);
 
-    add_settings_section(
+        add_settings_section(
 			'wpdev_mobile_fbia_settings_section', // id
 			'Facebook Settings', // title
 			array( $this, 'wpdev_mobile_section_info' ), // callback
@@ -560,17 +559,17 @@ class WPDevMobile {
 		);
         
         add_settings_field(
-			'enable_facebook_default', // id
-			'Enable Facebook by Default', // title
-			array( $this, 'enable_facebook_default_callback' ), // callback
+			'enable_facebook_check', // id
+			'Enable Facebook Checkbox', // title
+			array( $this, 'enable_facebook_check_callback' ), // callback
 			'wpdev-mobile-admin', // page
 			'wpdev_mobile_fbia_settings_section' // section
 		);
         
         add_settings_field(
-			'enable_facebook_check', // id
+			'enable_facebook_default', // id
 			'Enable Facebook by Default', // title
-			array( $this, 'enable_facebook_check_callback' ), // callback
+			array( $this, 'enable_facebook_default_callback' ), // callback
 			'wpdev-mobile-admin', // page
 			'wpdev_mobile_fbia_settings_section' // section
 		);
@@ -857,14 +856,14 @@ class WPDevMobile {
     
     public function enable_amp_default_callback() {
 		printf(
-			'<input type="checkbox" name="wpdev_mobile_option_name[enable_amp_default]" id="enable_amp_default" value="enable_amp_default" %s><label for="enable_amp_default">Enable the AMP checkbox.</label>',
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_amp_default]" id="enable_amp_default" value="enable_amp_default" %s><label for="enable_amp_default">Enable to set AMP to on by default for new posts.</label>',
 			( isset( $this->wpdev_mobile_options['enable_amp_default'] ) && $this->wpdev_mobile_options['enable_amp_default'] === 'enable_amp_default' ) ? 'checked' : ''
 		);
 	}
 
     public function enable_amp_check_callback() {
 		printf(
-			'<input type="checkbox" name="wpdev_mobile_option_name[enable_amp_check]" id="enable_amp_check" value="enable_amp_check" %s><label for="enable_amp_check">Enable to set AMP to on by default for new posts.</label>',
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_amp_check]" id="enable_amp_check" value="enable_amp_check" %s><label for="enable_amp_check">Enable the AMP checkbox.</label>',
 			( isset( $this->wpdev_mobile_options['enable_amp_check'] ) && $this->wpdev_mobile_options['enable_amp_check'] === 'enable_amp_check' ) ? 'checked' : ''
 		);
 	}
@@ -1099,7 +1098,7 @@ class WPDevMobile {
     
     public function enable_facebook_check_callback() {
 		printf(
-			'<input type="checkbox" name="wpdev_mobile_option_name[enable_facebook_check]" id="enable_facebook_check" value="enable_facebook_check" %s> <label for="enable_facebook_check">Enable Instant Articles Checkbox</label>',
+			'<input type="checkbox" name="wpdev_mobile_option_name[enable_facebook_check]" id="enable_facebook_check" value="enable_facebook_check" %s> <label for="enable_facebook_check">Enable the Instant Articles checkbox.</label>',
 			( isset( $this->wpdev_mobile_options['enable_facebook_check'] ) && $this->wpdev_mobile_options['enable_facebook_check'] === 'enable_facebook_check' ) ? 'checked' : ''
 		);
 	}
