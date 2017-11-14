@@ -1293,7 +1293,7 @@ function klicked_facebook_instant_article_content($content) {
         '/<br.*?>/', // find <br> and replace with <p>
         '/<p.*?>/', // remove classes from <p>
         '/(<p.*?>|<p.*?>\n)(<script.*?\/>|<script.*?>.*?<\/script>)(\n<\/p>|<\/p>)/', // remove <p> from <script>
-        '/(<p.*?><script.*?(video.foxnews|video.insider.foxnews).*?id=|<script.*?video.foxnews.*?id=)(.*?)(&.*?<\/p>)/', // find Fox News embed
+        '/(<p.*?><script.*?(video.foxnews|video.insider.foxnews|video.foxbusiness).*?id=|<script.*?(video.foxnews|video.insider.foxnews|video.foxbusiness).*?id=)(.*?)(&.*?<\/p>)/', // find Fox News embed
         '/(<p.*?>\n.*?<img.*?src="|<p.*?>.*?<img.*?src=")(.*?)(".*?<\/p>|".*?\n<\/p>)/', // find and fix <img>
         '/(<p.*?>)(<figure.*?figure>)(<\/p>)/', // find and fix <p> around <figure>
         '/(<p.*?>)(<iframe.*?iframe>)(<\/p>)/', // find and fix <iframe>
