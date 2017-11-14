@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.6.3 =
+* Fox News Insider embed support.
+
 = 1.6.2 =
 * UI bug fixes.
 

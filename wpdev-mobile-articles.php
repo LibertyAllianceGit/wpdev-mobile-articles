@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.6.2
+Version: 1.6.3
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -1285,13 +1285,15 @@ function klicked_facebook_instant_article_content($content) {
     // Filter non-iFrame oEmbeds
     add_filter($content, 'klicked_facebook_instant_article_oembed');
     
+    http://video.insider.foxnews.com/v/video-embed.html?video_id=5645185416001
+    
     // Setup preg_replace for correct formatting
     $find = array(
         // Fix empty tags and such
         '/<br.*?>/', // find <br> and replace with <p>
         '/<p.*?>/', // remove classes from <p>
         '/(<p.*?>|<p.*?>\n)(<script.*?\/>|<script.*?>.*?<\/script>)(\n<\/p>|<\/p>)/', // remove <p> from <script>
-        '/(<p.*?><script.*?video.foxnews.*?id=|<script.*?video.foxnews.*?id=)(.*?)(&.*?<\/p>)/', // find Fox News embed
+        '/(<p.*?><script.*?(video.foxnews|video.insider.foxnews).*?id=|<script.*?video.foxnews.*?id=)(.*?)(&.*?<\/p>)/', // find Fox News embed
         '/(<p.*?>\n.*?<img.*?src="|<p.*?>.*?<img.*?src=")(.*?)(".*?<\/p>|".*?\n<\/p>)/', // find and fix <img>
         '/(<p.*?>)(<figure.*?figure>)(<\/p>)/', // find and fix <p> around <figure>
         '/(<p.*?>)(<iframe.*?iframe>)(<\/p>)/', // find and fix <iframe>
@@ -1303,7 +1305,7 @@ function klicked_facebook_instant_article_content($content) {
         '</p><p>', // find <br> and replace with <p>
         '<p>', // remove classes from <p>
         '$2', // remove <p> from <script>
-        '<figure op="interactive"><iframe src="https://video.foxnews.com/v/video-embed.html?video_id=$2" width="466" height="263" marginwidth="0" marginheight="0" frameborder="0" scrolling="no"></iframe></figure>', // find Fox News embed
+        '<figure op="interactive"><iframe src="https://$2.com/v/video-embed.html?video_id=$3" width="466" height="263" marginwidth="0" marginheight="0" frameborder="0" scrolling="no"></iframe></figure>', // find Fox News embed
         '<figure data-feedback="fb:likes, fb:comments"><img src="$2" /></figure>', // find and fix <img>
         '$2', // find and fix <p> around <figure>
         '<figure class="op-interactive">$2</figure>', // find and fix <iframe>
