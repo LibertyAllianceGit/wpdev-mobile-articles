@@ -124,7 +124,6 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
                                                     <!-- author(s) -->
                                                 <address>
                                                     <a><?php echo get_the_author(); ?></a>
-                                                    <?php echo get_the_author_meta('description'); ?>
                                                 </address>
 
                                                     <!-- cover -->
