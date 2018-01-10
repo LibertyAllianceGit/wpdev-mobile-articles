@@ -26,6 +26,9 @@ Easily publish, monetize, and manage your content for Google AMP and Facebook In
 
 == Changelog ==
 
+= 1.6.6 =
+* Bug fix.
+
 = 1.6.5 =
 * PHP7 compatibility fix.
 

@@ -3,7 +3,7 @@
 Plugin Name: WP Developers | Mobile Articles
 Plugin URI: http://wpdevelopers.com
 Description: Take advantage of Facebook's Instant Articles and Google's Accelerated Mobile Pages.
-Version: 1.6.5
+Version: 1.6.6
 Author: Tyler Johnson
 Author URI: http://tylerjohnsondesign.com/
 Copyright: Tyler Johnson
@@ -19,11 +19,10 @@ NOTE: Software and code is only usable by Klicked Media, Patriot Ad Network, Bra
 Plugin Update
 **/
 require 'plugin-update-checker/plugin-update-checker.php';
-$className = PucFactory::getLatestClassVersion('PucGitHubChecker');
-$myUpdateChecker = new $className(
-    'https://github.com/LibertyAllianceGit/wpdev-mobile-articles',
-    __FILE__,
-    'master'
+$className = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/LibertyAllianceGit/wpdev-mobile-articles',
+	__FILE__,
+	'wpdev-mobile-articles'
 );
 
 /**
